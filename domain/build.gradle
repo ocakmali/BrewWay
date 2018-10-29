@@ -1,0 +1,14 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation deps.kotlin.coroutines_core
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

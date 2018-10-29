@@ -1,0 +1,41 @@
+//Reference: https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/versions.gradle
+
+ext.deps = [:]
+def versions = [:]
+versions.support = "1.0.0"
+versions.lifecycle = "2.0.0"
+versions.constraint_layout = "2.0.0-alpha2"
+versions.kotlin = "1.2.71"
+versions.coroutine = "0.30.1"
+versions.android_gradle_plugin = "3.2.0"
+
+
+def deps = [:]
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.target_sdk = 28
+build_versions.build_tools = "28.0.3"
+ext.build_versions = build_versions
+
+def support = [:]
+support.app_compat = "androidx.appcompat:appcompat:$versions.support"
+support.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.support = support
+
+def lifecycle = [:]
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+
+def kotlin = [:]
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutine"
+kotlin.coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine"
+deps.kotlin = kotlin
+
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+ext.deps = deps
