@@ -22,23 +22,18 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.ocakmali.domain.repository
 
-sealed class Result<out E, out V> {
+import com.ocakmali.domain.model.Recipe
+import com.ocakmali.domain.model.Result
 
-    data class Value<out V>(val value: V) : Result<Nothing, V>()
-    data class Error<out E>(val error: E) : Result<E, Nothing>()
+interface IRecipeRepository {
 
-    inline fun result(fnE: (E) -> Unit, fnV: (V) -> Unit) {
-        when (this) {
-            is Error -> fnE(error)
-            is Value -> fnV(value)
-        }
-    }
+    suspend fun loadRecipes(): Result<Exception, List<Recipe>>
 
-    companion object {
-        fun <V> buildValue(value: V) = Value(value)
+    suspend fun addRecipe(recipe: Recipe): Result<Exception, Unit>
 
-        fun <E> buildError(error: E) = Error(error)
-    }
+    suspend fun updateRecipe(recipeId: Long): Result<Exception, Unit>
+
+    suspend fun deleteRecipe(recipeId: Long): Result<Exception, Unit>
 }
