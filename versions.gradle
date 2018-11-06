@@ -4,6 +4,7 @@ ext.deps = [:]
 def versions = [:]
 versions.support = "1.0.0"
 versions.lifecycle = "2.0.0"
+versions.room = "2.0.0"
 versions.constraint_layout = "2.0.0-alpha2"
 versions.kotlin = "1.3.0"
 versions.coroutines = "1.0.0"
@@ -29,7 +30,6 @@ lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecy
 lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
 deps.lifecycle = lifecycle
 
-
 def kotlin = [:]
 kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
@@ -39,6 +39,11 @@ def coroutines = [:]
 coroutines.core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
 coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 deps.coroutines = coroutines
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+deps.room = room
 
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 ext.deps = deps
