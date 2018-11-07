@@ -25,52 +25,52 @@
 package com.example.data.repository
 
 import com.example.common.DispatchersProvider
-import com.example.data.dao.CoffeeDao
-import com.example.data.entity.CoffeeEntity
+import com.example.data.dao.CoffeeMakerDao
+import com.example.data.entity.CoffeeMakerEntity
 import com.example.data.mapper.EntityMapper
-import com.ocakmali.domain.model.Coffee
+import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.model.Result
-import com.ocakmali.domain.repository.ICoffeeRepository
+import com.ocakmali.domain.repository.ICoffeeMakerRepository
 import kotlinx.coroutines.withContext
 
-class CoffeeRepository(
-        private val dao: CoffeeDao,
-        private val mapper: EntityMapper<Coffee, CoffeeEntity>,
+class CoffeeMakerRepository(
+        private val dao: CoffeeMakerDao,
+        private val mapper: EntityMapper<CoffeeMaker, CoffeeMakerEntity>,
         private val dispatchers: DispatchersProvider
-) : ICoffeeRepository {
+) : ICoffeeMakerRepository {
 
-    override suspend fun loadCoffees(): Result<Exception, List<Coffee>> {
-       return Result.buildValue {
-           withContext(dispatchers.io) { dao.loadCoffees().map { mapper.mapFromEntity(it) } }
-       }
-    }
-
-    override suspend fun addCoffee(coffee: Coffee): Result<Exception, Unit> {
+    override suspend fun loadCoffeeMakers(): Result<Exception, List<CoffeeMaker>> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(mapper.mapToEntity(coffee)) }
+            withContext(dispatchers.io) { dao.loadCoffeeMakers().map { mapper.mapFromEntity(it) } }
         }
     }
 
-    override suspend fun addCoffees(coffees: List<Coffee>): Result<Exception, Unit> {
+    override suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(coffees.map { mapper.mapToEntity(it) }) }
+            withContext(dispatchers.io) { dao.insert(mapper.mapToEntity(coffeeMaker)) }
         }
     }
 
-    override suspend fun deleteCoffee(coffee: Coffee): Result<Exception, Unit> {
+    override suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.delete(mapper.mapToEntity(coffee)) }
+            withContext(dispatchers.io) { dao.insert(coffeeMakers.map { mapper.mapToEntity(it) }) }
+        }
+    }
+
+    override suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
+        return Result.buildValue {
+            withContext(dispatchers.io) { dao.delete(mapper.mapToEntity(coffeeMaker)) }
         }
     }
 
     companion object {
-        private var INSTANCE: CoffeeRepository? = null
+        private var INSTANCE: CoffeeMakerRepository? = null
 
-        fun getInstance(coffeeDao: CoffeeDao,
-                        mapper: EntityMapper<Coffee, CoffeeEntity>,
-                        dispatchers: DispatchersProvider): CoffeeRepository {
+        fun getInstance(dao: CoffeeMakerDao,
+                        mapper: EntityMapper<CoffeeMaker, CoffeeMakerEntity>,
+                        dispatchers: DispatchersProvider): CoffeeMakerRepository {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: CoffeeRepository(coffeeDao, mapper, dispatchers).also { INSTANCE = it }
+                INSTANCE ?: CoffeeMakerRepository(dao, mapper, dispatchers).also { INSTANCE = it }
             }
         }
     }

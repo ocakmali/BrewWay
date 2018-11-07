@@ -22,7 +22,13 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.example.data.db
 
-data class CoffeeMaker(val name: String,
-                       val id: Int?)
+object CoffeeMakerConstants {
+
+    const val TABLE_NAME = "coffee_makers"
+
+    const val COLUMN_ID = "id"
+
+    const val COLUMN_NAME = "name"
+}

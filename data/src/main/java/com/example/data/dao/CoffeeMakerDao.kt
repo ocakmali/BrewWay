@@ -22,45 +22,17 @@
  * SOFTWARE.
  */
 
-package com.example.data.db
+package com.example.data.dao
 
-import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.data.dao.CoffeeMakerDao
-import com.example.data.dao.CoffeeDao
-import com.example.data.entity.CoffeeEntity
+import androidx.room.Dao
+import androidx.room.Query
+import com.example.data.BaseDao
+import com.example.data.db.CoffeeMakerConstants.TABLE_NAME
 import com.example.data.entity.CoffeeMakerEntity
 
-@Database(
-        entities = [
-            CoffeeEntity::class,
-            CoffeeMakerEntity::class],
-        exportSchema = false,
-        version = 1
-)
-abstract class BrewWayDatabase : RoomDatabase() {
+@Dao
+abstract class CoffeeMakerDao : BaseDao<CoffeeMakerEntity> {
 
-    abstract fun coffeeDao(): CoffeeDao
-
-    abstract fun coffeeMakerDao(): CoffeeMakerDao
-
-    companion object {
-        private var INSTANCE: BrewWayDatabase? = null
-
-        fun getInstance(context: Context): BrewWayDatabase {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
-            }
-        }
-
-        private fun buildDatabase(context: Context): BrewWayDatabase {
-            return Room.databaseBuilder(context.applicationContext,
-                    BrewWayDatabase::class.java,
-                    "BrewWay.db")
-                    .fallbackToDestructiveMigration()
-                    .build()
-        }
-    }
+    @Query("SELECT * FROM $TABLE_NAME")
+    abstract fun loadCoffeeMakers(): List<CoffeeMakerEntity>
 }

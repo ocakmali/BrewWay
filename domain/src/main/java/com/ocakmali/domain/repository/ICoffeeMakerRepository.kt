@@ -22,7 +22,18 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.ocakmali.domain.repository
 
-data class CoffeeMaker(val name: String,
-                       val id: Int?)
+import com.ocakmali.domain.model.CoffeeMaker
+import com.ocakmali.domain.model.Result
+
+interface ICoffeeMakerRepository {
+
+    suspend fun loadCoffeeMakers(): Result<Exception, List<CoffeeMaker>>
+
+    suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit>
+
+    suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>): Result<Exception, Unit>
+
+    suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit>
+}

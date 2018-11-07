@@ -22,45 +22,37 @@
  * SOFTWARE.
  */
 
-package com.example.data.db
+package com.ocakmali.domain.interactor
 
-import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.data.dao.CoffeeMakerDao
-import com.example.data.dao.CoffeeDao
-import com.example.data.entity.CoffeeEntity
-import com.example.data.entity.CoffeeMakerEntity
+import com.ocakmali.domain.model.CoffeeMaker
+import com.ocakmali.domain.model.Result
+import com.ocakmali.domain.repository.ICoffeeMakerRepository
 
-@Database(
-        entities = [
-            CoffeeEntity::class,
-            CoffeeMakerEntity::class],
-        exportSchema = false,
-        version = 1
-)
-abstract class BrewWayDatabase : RoomDatabase() {
+class CoffeeMakerInteractor(private val repository: ICoffeeMakerRepository) {
 
-    abstract fun coffeeDao(): CoffeeDao
+    suspend fun loadCoffeeMakers(handleResult: Result<Exception, List<CoffeeMaker>>.() -> Unit) {
+        handleResult(repository.loadCoffeeMakers())
+    }
 
-    abstract fun coffeeMakerDao(): CoffeeMakerDao
+    suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
+        handleResult(repository.addCoffeeMaker(coffeeMaker))
+    }
+
+    suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>, handleResult: Result<Exception, Unit>.() -> Unit) {
+        handleResult(repository.addCoffeeMakers(coffeeMakers))
+    }
+
+    suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
+        handleResult(repository.deleteCoffeeMaker(coffeeMaker))
+    }
 
     companion object {
-        private var INSTANCE: BrewWayDatabase? = null
+        private var INSTANCE: CoffeeMakerInteractor? = null
 
-        fun getInstance(context: Context): BrewWayDatabase {
+        fun getInstance(repository: ICoffeeMakerRepository): CoffeeMakerInteractor {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+                INSTANCE ?: CoffeeMakerInteractor(repository).also { INSTANCE = it }
             }
-        }
-
-        private fun buildDatabase(context: Context): BrewWayDatabase {
-            return Room.databaseBuilder(context.applicationContext,
-                    BrewWayDatabase::class.java,
-                    "BrewWay.db")
-                    .fallbackToDestructiveMigration()
-                    .build()
         }
     }
 }

@@ -22,7 +22,16 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.example.data.entity
 
-data class CoffeeMaker(val name: String,
-                       val id: Int?)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.data.db.CoffeeMakerConstants.COLUMN_ID
+import com.example.data.db.CoffeeMakerConstants.COLUMN_NAME
+import com.example.data.db.CoffeeMakerConstants.TABLE_NAME
+
+@Entity(tableName = TABLE_NAME)
+data class CoffeeMakerEntity(@ColumnInfo(name = COLUMN_NAME )val name: String,
+                             @PrimaryKey(autoGenerate = true)
+                             @ColumnInfo(name = COLUMN_ID)val id: Int?)

@@ -22,45 +22,14 @@
  * SOFTWARE.
  */
 
-package com.example.data.db
+package com.example.data.mapper
 
-import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.example.data.dao.CoffeeMakerDao
-import com.example.data.dao.CoffeeDao
-import com.example.data.entity.CoffeeEntity
 import com.example.data.entity.CoffeeMakerEntity
+import com.ocakmali.domain.model.CoffeeMaker
 
-@Database(
-        entities = [
-            CoffeeEntity::class,
-            CoffeeMakerEntity::class],
-        exportSchema = false,
-        version = 1
-)
-abstract class BrewWayDatabase : RoomDatabase() {
+class CoffeeMakerEntityMapper : EntityMapper<CoffeeMaker, CoffeeMakerEntity> {
 
-    abstract fun coffeeDao(): CoffeeDao
+    override fun mapToEntity(d: CoffeeMaker) = CoffeeMakerEntity(d.name, d.id)
 
-    abstract fun coffeeMakerDao(): CoffeeMakerDao
-
-    companion object {
-        private var INSTANCE: BrewWayDatabase? = null
-
-        fun getInstance(context: Context): BrewWayDatabase {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
-            }
-        }
-
-        private fun buildDatabase(context: Context): BrewWayDatabase {
-            return Room.databaseBuilder(context.applicationContext,
-                    BrewWayDatabase::class.java,
-                    "BrewWay.db")
-                    .fallbackToDestructiveMigration()
-                    .build()
-        }
-    }
+    override fun mapFromEntity(e: CoffeeMakerEntity) = CoffeeMaker(e.name, e.id)
 }
