@@ -22,29 +22,37 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.ocakmali.domain.interactor
 
-sealed class Result<out E, out V> {
+import com.ocakmali.domain.model.Coffee
+import com.ocakmali.domain.model.Result
+import com.ocakmali.domain.repository.ICoffeeRepository
 
-    data class Value<out V>(val value: V) : Result<Nothing, V>()
-    data class Error<out E>(val error: E) : Result<E, Nothing>()
+class CoffeeInteractor(private val repository: ICoffeeRepository) {
 
-    inline fun result(fnE: (E) -> Unit, fnV: (V) -> Unit) {
-        when (this) {
-            is Error -> fnE(error)
-            is Value -> fnV(value)
-        }
+    suspend fun loadCoffees(handleResult: Result<Exception, List<Coffee>>.() -> Unit) {
+        handleResult(repository.loadCoffees())
+    }
+
+    suspend fun addCoffee(coffee: Coffee, handleResult: Result<Exception, Unit>.() -> Unit) {
+        handleResult(repository.addCoffee(coffee))
+    }
+
+    suspend fun addCoffees(coffees: List<Coffee>, handleResult: Result<Exception, Unit>.() -> Unit) {
+        handleResult(repository.addCoffees(coffees))
+    }
+
+    suspend fun deleteCoffee(coffee: Coffee, handleResult: Result<Exception, Unit>.() -> Unit) {
+        handleResult(repository.deleteCoffee(coffee))
     }
 
     companion object {
-        inline fun <V> buildValue(action: () -> V): Result<Exception, V> {
-            return try {
-                Value(action())
-            } catch (e: Exception){
-                Error(e)
+        private var INSTANCE: CoffeeInteractor? = null
+
+        fun getInstance(repository: ICoffeeRepository): CoffeeInteractor {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: CoffeeInteractor(repository).also { INSTANCE = it }
             }
         }
-
-        fun <E> buildError(error: E) = Error(error)
     }
 }

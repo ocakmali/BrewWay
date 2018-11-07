@@ -22,36 +22,39 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+package com.example.data.db
 
-android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
-    defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.example.data.dao.CoffeeDao
+import com.example.data.entity.CoffeeEntity
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+@Database(
+        entities = [CoffeeEntity::class],
+        exportSchema = false,
+        version = 1
+)
+abstract class BrewWayDatabase : RoomDatabase() {
+
+    abstract fun coffeeDao(): CoffeeDao
+
+    companion object {
+        private var INSTANCE: BrewWayDatabase? = null
+
+        fun getInstance(context: Context): BrewWayDatabase {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            }
+        }
+
+        private fun buildDatabase(context: Context): BrewWayDatabase {
+            return Room.databaseBuilder(context.applicationContext,
+                    BrewWayDatabase::class.java,
+                    "BrewWay.db")
+                    .fallbackToDestructiveMigration()
+                    .build()
         }
     }
-}
-
-dependencies {
-    api project(':domain')
-    api project(':common')
-
-    implementation deps.kotlin.stdlib
-    implementation deps.coroutines.core
-    implementation deps.room.runtime
-
-    kapt deps.room.compiler
 }

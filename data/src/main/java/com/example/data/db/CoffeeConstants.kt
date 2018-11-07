@@ -22,36 +22,13 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+package com.example.data.db
 
-android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
-    defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+object CoffeeConstants {
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+    const val TABLE_NAME = "coffees"
 
-dependencies {
-    api project(':domain')
-    api project(':common')
+    const val COLUMN_ID = "id"
 
-    implementation deps.kotlin.stdlib
-    implementation deps.coroutines.core
-    implementation deps.room.runtime
-
-    kapt deps.room.compiler
+    const val COLUMN_NAME = "name"
 }

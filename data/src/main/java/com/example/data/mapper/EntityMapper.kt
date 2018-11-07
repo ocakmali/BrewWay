@@ -22,36 +22,11 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+package com.example.data.mapper
 
-android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
-    defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+interface EntityMapper<D, E> {
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+    fun mapToEntity(d: D): E
 
-dependencies {
-    api project(':domain')
-    api project(':common')
-
-    implementation deps.kotlin.stdlib
-    implementation deps.coroutines.core
-    implementation deps.room.runtime
-
-    kapt deps.room.compiler
+    fun mapFromEntity(e: E): D
 }

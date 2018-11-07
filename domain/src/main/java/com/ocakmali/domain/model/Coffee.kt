@@ -25,4 +25,4 @@
 package com.ocakmali.domain.model
 
 data class Coffee(val name: String,
-                  val id: Long = -1)
+                  val id: Int?)

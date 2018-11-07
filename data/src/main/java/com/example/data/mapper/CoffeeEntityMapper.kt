@@ -22,36 +22,14 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+package com.example.data.mapper
 
-android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
-    defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+import com.example.data.entity.CoffeeEntity
+import com.ocakmali.domain.model.Coffee
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+class CoffeeEntityMapper : EntityMapper<Coffee, CoffeeEntity> {
 
-dependencies {
-    api project(':domain')
-    api project(':common')
+    override fun mapToEntity(d: Coffee) = CoffeeEntity(d.name, d.id)
 
-    implementation deps.kotlin.stdlib
-    implementation deps.coroutines.core
-    implementation deps.room.runtime
-
-    kapt deps.room.compiler
+    override fun mapFromEntity(e: CoffeeEntity) = Coffee(e.name, e.id)
 }

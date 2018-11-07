@@ -22,36 +22,17 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+package com.example.data.entity
 
-android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
-    defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.data.db.CoffeeConstants.COLUMN_ID
+import com.example.data.db.CoffeeConstants.COLUMN_NAME
+import com.example.data.db.CoffeeConstants.TABLE_NAME
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
-
-dependencies {
-    api project(':domain')
-    api project(':common')
-
-    implementation deps.kotlin.stdlib
-    implementation deps.coroutines.core
-    implementation deps.room.runtime
-
-    kapt deps.room.compiler
-}
+@Entity(tableName = TABLE_NAME)
+data class CoffeeEntity(@ColumnInfo(name = COLUMN_NAME)val name: String,
+                        @PrimaryKey(autoGenerate = true)
+                        @ColumnInfo(name = COLUMN_ID)
+                        val id: Int?)
