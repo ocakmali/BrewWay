@@ -26,8 +26,7 @@ package com.example.data.repository
 
 import com.example.common.DispatchersProvider
 import com.example.data.dao.CoffeeMakerDao
-import com.example.data.entity.CoffeeMakerEntity
-import com.example.data.mapper.EntityMapper
+import com.example.data.mapper.CoffeeMakerEntityMapper
 import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
@@ -35,7 +34,7 @@ import kotlinx.coroutines.withContext
 
 class CoffeeMakerRepository(
         private val dao: CoffeeMakerDao,
-        private val mapper: EntityMapper<CoffeeMaker, CoffeeMakerEntity>,
+        private val mapper: CoffeeMakerEntityMapper,
         private val dispatchers: DispatchersProvider
 ) : ICoffeeMakerRepository {
 
@@ -60,18 +59,6 @@ class CoffeeMakerRepository(
     override suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
         return Result.buildValue {
             withContext(dispatchers.io) { dao.delete(mapper.mapToEntity(coffeeMaker)) }
-        }
-    }
-
-    companion object {
-        private var INSTANCE: CoffeeMakerRepository? = null
-
-        fun getInstance(dao: CoffeeMakerDao,
-                        mapper: EntityMapper<CoffeeMaker, CoffeeMakerEntity>,
-                        dispatchers: DispatchersProvider): CoffeeMakerRepository {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: CoffeeMakerRepository(dao, mapper, dispatchers).also { INSTANCE = it }
-            }
         }
     }
 }

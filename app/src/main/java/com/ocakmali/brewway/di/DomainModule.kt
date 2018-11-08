@@ -22,27 +22,15 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.interactor
+package com.ocakmali.brewway.di
 
-import com.ocakmali.domain.model.CoffeeMaker
-import com.ocakmali.domain.model.Result
-import com.ocakmali.domain.repository.ICoffeeMakerRepository
+import com.ocakmali.domain.interactor.CoffeeInteractor
+import com.ocakmali.domain.interactor.CoffeeMakerInteractor
+import org.koin.dsl.module.module
 
-class CoffeeMakerInteractor(private val repository: ICoffeeMakerRepository) {
+val domainModule = module {
 
-    suspend fun loadCoffeeMakers(handleResult: Result<Exception, List<CoffeeMaker>>.() -> Unit) {
-        handleResult(repository.loadCoffeeMakers())
-    }
-
-    suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffeeMaker(coffeeMaker))
-    }
-
-    suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffeeMakers(coffeeMakers))
-    }
-
-    suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.deleteCoffeeMaker(coffeeMaker))
-    }
+    //Interactor
+    factory { CoffeeInteractor(get()) }
+    factory { CoffeeMakerInteractor(get()) }
 }

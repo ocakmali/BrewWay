@@ -24,12 +24,10 @@
 
 package com.example.data.db
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.data.dao.CoffeeMakerDao
 import com.example.data.dao.CoffeeDao
+import com.example.data.dao.CoffeeMakerDao
 import com.example.data.entity.CoffeeEntity
 import com.example.data.entity.CoffeeMakerEntity
 
@@ -45,22 +43,4 @@ abstract class BrewWayDatabase : RoomDatabase() {
     abstract fun coffeeDao(): CoffeeDao
 
     abstract fun coffeeMakerDao(): CoffeeMakerDao
-
-    companion object {
-        private var INSTANCE: BrewWayDatabase? = null
-
-        fun getInstance(context: Context): BrewWayDatabase {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
-            }
-        }
-
-        private fun buildDatabase(context: Context): BrewWayDatabase {
-            return Room.databaseBuilder(context.applicationContext,
-                    BrewWayDatabase::class.java,
-                    "BrewWay.db")
-                    .fallbackToDestructiveMigration()
-                    .build()
-        }
-    }
 }

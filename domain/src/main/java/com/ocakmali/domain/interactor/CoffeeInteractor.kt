@@ -45,14 +45,4 @@ class CoffeeInteractor(private val repository: ICoffeeRepository) {
     suspend fun deleteCoffee(coffee: Coffee, handleResult: Result<Exception, Unit>.() -> Unit) {
         handleResult(repository.deleteCoffee(coffee))
     }
-
-    companion object {
-        private var INSTANCE: CoffeeInteractor? = null
-
-        fun getInstance(repository: ICoffeeRepository): CoffeeInteractor {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: CoffeeInteractor(repository).also { INSTANCE = it }
-            }
-        }
-    }
 }

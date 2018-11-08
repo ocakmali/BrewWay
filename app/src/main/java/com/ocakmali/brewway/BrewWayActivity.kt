@@ -22,27 +22,15 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.interactor
+package com.ocakmali.brewway
 
-import com.ocakmali.domain.model.CoffeeMaker
-import com.ocakmali.domain.model.Result
-import com.ocakmali.domain.repository.ICoffeeMakerRepository
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
-class CoffeeMakerInteractor(private val repository: ICoffeeMakerRepository) {
+class BrewWayActivity : AppCompatActivity() {
 
-    suspend fun loadCoffeeMakers(handleResult: Result<Exception, List<CoffeeMaker>>.() -> Unit) {
-        handleResult(repository.loadCoffeeMakers())
-    }
-
-    suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffeeMaker(coffeeMaker))
-    }
-
-    suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffeeMakers(coffeeMakers))
-    }
-
-    suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.deleteCoffeeMaker(coffeeMaker))
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_brew_way)
     }
 }
