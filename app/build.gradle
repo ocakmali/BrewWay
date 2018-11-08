@@ -24,6 +24,7 @@ android {
 
 dependencies {
     api project(':domain')
+    api project(':data')
 
     implementation deps.kotlin.stdlib
     implementation deps.support.app_compat
@@ -34,6 +35,7 @@ dependencies {
     implementation deps.lifecycle.extensions
     implementation deps.koin.scope
     implementation deps.koin.viewmodel
+    implementation deps.room.runtime
     
     kapt deps.lifecycle.compiler
 }
