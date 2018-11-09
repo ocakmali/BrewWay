@@ -25,17 +25,25 @@ android {
 dependencies {
     api project(':domain')
     api project(':data')
+    api project(':common')
 
     implementation deps.kotlin.stdlib
+
     implementation deps.support.app_compat
     implementation deps.support.constraint_layout
+
     implementation deps.coroutines.core
     implementation deps.coroutines.android
+
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
+    kapt deps.lifecycle.compiler
+
     implementation deps.koin.scope
     implementation deps.koin.viewmodel
+
     implementation deps.room.runtime
-    
-    kapt deps.lifecycle.compiler
+
+    implementation deps.navigation.fragment
+    implementation deps.navigation.ui
 }
