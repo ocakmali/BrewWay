@@ -26,8 +26,6 @@ package com.ocakmali.brewway.di
 
 import androidx.room.Room
 import com.example.data.db.BrewWayDatabase
-import com.example.data.mapper.CoffeeEntityMapper
-import com.example.data.mapper.CoffeeMakerEntityMapper
 import com.example.data.repository.CoffeeMakerRepository
 import com.example.data.repository.CoffeeRepository
 import com.ocakmali.brewway.BuildConfig
@@ -49,11 +47,7 @@ val dataModule = module {
     factory { get<BrewWayDatabase>().coffeeDao() }
     factory { get<BrewWayDatabase>().coffeeMakerDao() }
 
-    //EntityMapper
-    factory { CoffeeEntityMapper() }
-    factory { CoffeeMakerEntityMapper() }
-
     //Repository
-    single<ICoffeeRepository> { CoffeeRepository(get(), get(), get()) }
-    single<ICoffeeMakerRepository> { CoffeeMakerRepository(get(), get(), get()) }
+    single<ICoffeeRepository> { CoffeeRepository(get(), get()) }
+    single<ICoffeeMakerRepository> { CoffeeMakerRepository(get(), get()) }
 }

@@ -30,6 +30,11 @@ import androidx.room.PrimaryKey
 import com.example.data.db.CoffeeMakerConstants.COLUMN_ID
 import com.example.data.db.CoffeeMakerConstants.COLUMN_NAME
 import com.example.data.db.CoffeeMakerConstants.TABLE_NAME
+import com.ocakmali.domain.model.CoffeeMaker
+
+fun CoffeeMakerEntity.mapFromEntity() = CoffeeMaker(name, id)
+
+fun CoffeeMaker.mapToEntity() = CoffeeMakerEntity(name, id)
 
 @Entity(tableName = TABLE_NAME)
 data class CoffeeMakerEntity(@ColumnInfo(name = COLUMN_NAME )val name: String,

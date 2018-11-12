@@ -26,7 +26,8 @@ package com.example.data.repository
 
 import com.example.common.DispatchersProvider
 import com.example.data.dao.CoffeeDao
-import com.example.data.mapper.CoffeeEntityMapper
+import com.example.data.entity.mapFromEntity
+import com.example.data.entity.mapToEntity
 import com.ocakmali.domain.model.Coffee
 import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeRepository
@@ -34,31 +35,38 @@ import kotlinx.coroutines.withContext
 
 class CoffeeRepository(
         private val dao: CoffeeDao,
-        private val mapper: CoffeeEntityMapper,
         private val dispatchers: DispatchersProvider
 ) : ICoffeeRepository {
 
     override suspend fun loadCoffees(): Result<Exception, List<Coffee>> {
        return Result.buildValue {
-           withContext(dispatchers.io) { dao.loadCoffees().map { mapper.mapFromEntity(it) } }
+           withContext(dispatchers.io) {
+               dao.loadCoffees().map { coffeeEntity ->
+                   coffeeEntity.mapFromEntity()
+               }
+           }
        }
     }
 
     override suspend fun addCoffee(coffee: Coffee): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(mapper.mapToEntity(coffee)) }
+            withContext(dispatchers.io) { dao.insert(coffee.mapToEntity()) }
         }
     }
 
     override suspend fun addCoffees(coffees: List<Coffee>): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(coffees.map { mapper.mapToEntity(it) }) }
+            withContext(dispatchers.io) {
+                dao.insert(coffees.map { coffee ->
+                    coffee.mapToEntity()
+                })
+            }
         }
     }
 
     override suspend fun deleteCoffee(coffee: Coffee): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.delete(mapper.mapToEntity(coffee)) }
+            withContext(dispatchers.io) { dao.delete(coffee.mapToEntity()) }
         }
     }
 }

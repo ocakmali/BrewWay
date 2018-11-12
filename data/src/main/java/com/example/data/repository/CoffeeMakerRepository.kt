@@ -26,7 +26,8 @@ package com.example.data.repository
 
 import com.example.common.DispatchersProvider
 import com.example.data.dao.CoffeeMakerDao
-import com.example.data.mapper.CoffeeMakerEntityMapper
+import com.example.data.entity.mapFromEntity
+import com.example.data.entity.mapToEntity
 import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
@@ -34,31 +35,38 @@ import kotlinx.coroutines.withContext
 
 class CoffeeMakerRepository(
         private val dao: CoffeeMakerDao,
-        private val mapper: CoffeeMakerEntityMapper,
         private val dispatchers: DispatchersProvider
 ) : ICoffeeMakerRepository {
 
     override suspend fun loadCoffeeMakers(): Result<Exception, List<CoffeeMaker>> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.loadCoffeeMakers().map { mapper.mapFromEntity(it) } }
+            withContext(dispatchers.io) {
+                dao.loadCoffeeMakers().map { makerEntity ->
+                    makerEntity.mapFromEntity()
+                }
+            }
         }
     }
 
     override suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(mapper.mapToEntity(coffeeMaker)) }
+            withContext(dispatchers.io) { dao.insert(coffeeMaker.mapToEntity()) }
         }
     }
 
     override suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(coffeeMakers.map { mapper.mapToEntity(it) }) }
+            withContext(dispatchers.io) {
+                dao.insert(coffeeMakers.map { maker ->
+                    maker.mapToEntity()
+                })
+            }
         }
     }
 
     override suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.delete(mapper.mapToEntity(coffeeMaker)) }
+            withContext(dispatchers.io) { dao.delete(coffeeMaker.mapToEntity()) }
         }
     }
 }
