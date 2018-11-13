@@ -53,8 +53,8 @@ koin.viewmodel = "org.koin:koin-androidx-viewmodel:$versions.koin"
 deps.koin = koin
 
 def navigation = [:]
-navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.navigation"
-navigation.ui = "android.arch.navigation:navigation-ui:$versions.navigation"
+navigation.fragment = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.ui = "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
 deps.navigation = navigation
 
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
