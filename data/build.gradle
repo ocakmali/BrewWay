@@ -50,8 +50,11 @@ dependencies {
     api project(':common')
 
     implementation deps.kotlin.stdlib
-    implementation deps.coroutines.core
-    implementation deps.room.runtime
 
+    implementation deps.coroutines.core
+
+    implementation deps.room.runtime
     kapt deps.room.compiler
+
+    implementation deps.paging
 }

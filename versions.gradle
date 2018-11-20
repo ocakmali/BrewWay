@@ -11,6 +11,8 @@ versions.coroutines = "1.0.0"
 versions.android_gradle_plugin = "3.2.1"
 versions.koin = "1.0.1"
 versions.navigation = "1.0.0-alpha07"
+versions.paging = "2.1.0-beta01"
+versions.recyclerview = "1.0.0"
 
 
 def deps = [:]
@@ -23,6 +25,7 @@ ext.build_versions = build_versions
 
 def support = [:]
 support.app_compat = "androidx.appcompat:appcompat:$versions.support"
+support.recycler_view = "androidx.recyclerview:recyclerview:$versions.recyclerview"
 support.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
 deps.support = support
 
@@ -57,5 +60,6 @@ navigation.fragment = "android.arch.navigation:navigation-fragment-ktx:$versions
 navigation.ui = "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
 deps.navigation = navigation
 
+deps.paging = "androidx.paging:paging-runtime-ktx:$versions.paging"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 ext.deps = deps

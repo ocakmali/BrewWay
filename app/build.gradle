@@ -31,6 +31,7 @@ dependencies {
 
     implementation deps.support.app_compat
     implementation deps.support.constraint_layout
+    implementation deps.support.recycler_view
 
     implementation deps.coroutines.core
     implementation deps.coroutines.android
@@ -46,4 +47,6 @@ dependencies {
 
     implementation deps.navigation.fragment
     implementation deps.navigation.ui
+
+    implementation deps.paging
 }

@@ -2,6 +2,8 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation deps.coroutines.core
+
+    implementation deps.paging
 }
 
 sourceCompatibility = "7"
