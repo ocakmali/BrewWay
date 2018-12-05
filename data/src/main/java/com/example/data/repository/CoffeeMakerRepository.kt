@@ -26,8 +26,8 @@ package com.example.data.repository
 
 import com.example.common.DispatchersProvider
 import com.example.data.dao.CoffeeMakerDao
-import com.example.data.entity.mapFromEntity
-import com.example.data.entity.mapToEntity
+import com.example.data.entity.toCoffeeMaker
+import com.example.data.entity.toEntity
 import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
@@ -42,7 +42,7 @@ class CoffeeMakerRepository(
         return Result.buildValue {
             withContext(dispatchers.io) {
                 dao.loadCoffeeMakers().map { makerEntity ->
-                    makerEntity.mapFromEntity()
+                    makerEntity.toCoffeeMaker()
                 }
             }
         }
@@ -50,7 +50,7 @@ class CoffeeMakerRepository(
 
     override suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(coffeeMaker.mapToEntity()) }
+            withContext(dispatchers.io) { dao.insert(coffeeMaker.toEntity()) }
         }
     }
 
@@ -58,7 +58,7 @@ class CoffeeMakerRepository(
         return Result.buildValue {
             withContext(dispatchers.io) {
                 dao.insert(coffeeMakers.map { maker ->
-                    maker.mapToEntity()
+                    maker.toEntity()
                 })
             }
         }
@@ -66,7 +66,7 @@ class CoffeeMakerRepository(
 
     override suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.delete(coffeeMaker.mapToEntity()) }
+            withContext(dispatchers.io) { dao.delete(coffeeMaker.toEntity()) }
         }
     }
 }

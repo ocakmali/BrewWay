@@ -23,25 +23,25 @@
   ~ SOFTWARE.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".BrewWayActivity">
+    android:id="@+id/nav_brew_way"
+    app:startDestination="@id/dest_recipes">
 
-    <include layout="@layout/layout_container"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:itemIconTint="@drawable/bottom_nav_item_selector"
-        app:itemTextColor="@drawable/bottom_nav_item_selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_nav"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <fragment
+        android:id="@+id/dest_recipes"
+        android:name="com.ocakmali.brewway.recipes.RecipesFragment"
+        android:label="@string/recipes"
+        tools:layout="@layout/fragment_recipes"/>
+    <fragment
+        android:id="@+id/dest_timer"
+        android:name="com.ocakmali.brewway.timer.TimerFragment"
+        android:label="@string/timer"
+        tools:layout="@layout/fragment_timer"/>
+    <fragment
+        android:id="@+id/dest_equipment"
+        android:name="com.ocakmali.brewway.equipments.EquipmentFragment"
+        android:label="@string/equipment"
+        tools:layout="@layout/fragment_equipment"/>
+</navigation>

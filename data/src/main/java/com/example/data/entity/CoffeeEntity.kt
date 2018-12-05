@@ -32,9 +32,9 @@ import com.example.data.db.CoffeeConstants.COLUMN_NAME
 import com.example.data.db.CoffeeConstants.TABLE_NAME
 import com.ocakmali.domain.model.Coffee
 
-fun Coffee.mapToEntity() = CoffeeEntity(name, id)
+internal fun Coffee.toEntity() = CoffeeEntity(name, id)
 
-fun CoffeeEntity.mapFromEntity() = Coffee(name, id)
+internal fun CoffeeEntity.toCoffee() = Coffee(name, id)
 
 @Entity(tableName = TABLE_NAME)
 data class CoffeeEntity(@ColumnInfo(name = COLUMN_NAME)val name: String,

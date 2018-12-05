@@ -22,15 +22,18 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.brewway.di
+package com.ocakmali.brewway.equipments
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import org.koin.dsl.module.module
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.ocakmali.brewway.R
 
-val domainModule = module {
+class EquipmentFragment : Fragment() {
 
-    //Interactor
-    factory { CoffeeInterActor(get()) }
-    factory { CoffeeMakerInterActor(get()) }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_equipment, container, false)
+    }
 }

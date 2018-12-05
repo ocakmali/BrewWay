@@ -22,27 +22,13 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.interactor
+package com.ocakmali.brewway.equipments.coffees
 
-import com.ocakmali.domain.model.Coffee
-import com.ocakmali.domain.model.Result
-import com.ocakmali.domain.repository.ICoffeeRepository
+import com.ocakmali.brewway.datamodel.CoffeeView
 
-class CoffeeInteractor(private val repository: ICoffeeRepository) {
+interface CoffeesActionListener {
 
-    suspend fun loadCoffees(handleResult: Result<Exception, List<Coffee>>.() -> Unit) {
-        handleResult(repository.loadCoffees())
-    }
+    fun onDoneClick(coffeeView: CoffeeView)
 
-    suspend fun addCoffee(coffee: Coffee, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffee(coffee))
-    }
-
-    suspend fun addCoffees(coffees: List<Coffee>, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffees(coffees))
-    }
-
-    suspend fun deleteCoffee(coffee: Coffee, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.deleteCoffee(coffee))
-    }
+    fun onDeleteClick(coffeeView: CoffeeView)
 }

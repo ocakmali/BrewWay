@@ -22,15 +22,29 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.brewway.di
+package com.ocakmali.brewway.equipments.coffees
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import org.koin.dsl.module.module
+import android.view.View
+import android.widget.EditText
+import android.widget.ImageButton
+import androidx.recyclerview.widget.RecyclerView
+import com.ocakmali.brewway.R
+import com.ocakmali.brewway.datamodel.CoffeeView
+import com.ocakmali.brewway.extensions.setOnActionDoneClickListener
 
-val domainModule = module {
 
-    //Interactor
-    factory { CoffeeInterActor(get()) }
-    factory { CoffeeMakerInterActor(get()) }
+class CoffeesViewHolder(view: View, private val listener: CoffeesActionListener) : RecyclerView.ViewHolder(view){
+    private val title: EditText = view.findViewById(R.id.tv_coffee)
+    private val delete: ImageButton = view.findViewById(R.id.btn_delete)
+
+    fun bind(coffeeView: CoffeeView) {
+        title.setText(coffeeView.name)
+
+        title.setOnActionDoneClickListener {
+            listener.onDoneClick(coffeeView.copy(name = it.text.toString()))
+            it.clearFocus()
+        }
+
+        delete.setOnClickListener { listener.onDeleteClick(coffeeView) }
+    }
 }

@@ -22,15 +22,18 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.brewway.di
+package com.ocakmali.domain.interactor
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import org.koin.dsl.module.module
+import com.ocakmali.domain.model.Coffee
+import com.ocakmali.domain.repository.ICoffeeRepository
 
-val domainModule = module {
+class CoffeeInterActor(private val repository: ICoffeeRepository) {
 
-    //Interactor
-    factory { CoffeeInterActor(get()) }
-    factory { CoffeeMakerInterActor(get()) }
+    fun loadCoffees() = repository.loadCoffees()
+
+    suspend fun addCoffee(coffee: Coffee) = repository.addCoffee(coffee)
+
+    suspend fun addCoffees(coffees: List<Coffee>) = repository.addCoffees(coffees)
+
+    suspend fun deleteCoffee(coffee: Coffee) = repository.deleteCoffee(coffee)
 }

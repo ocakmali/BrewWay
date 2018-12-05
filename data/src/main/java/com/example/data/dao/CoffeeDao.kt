@@ -24,6 +24,7 @@
 
 package com.example.data.dao
 
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Query
 import com.example.data.BaseDao
@@ -34,5 +35,5 @@ import com.example.data.entity.CoffeeEntity
 abstract class CoffeeDao : BaseDao<CoffeeEntity> {
 
     @Query("SELECT * FROM $TABLE_NAME")
-    abstract fun loadCoffees(): List<CoffeeEntity>
+    abstract fun loadCoffees(): DataSource.Factory<Int, CoffeeEntity>
 }

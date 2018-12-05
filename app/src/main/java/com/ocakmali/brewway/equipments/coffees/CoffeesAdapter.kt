@@ -22,39 +22,33 @@
  * SOFTWARE.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+package com.ocakmali.brewway.equipments.coffees
 
-android {
-    compileSdkVersion build_versions.target_sdk
-    buildToolsVersion build_versions.build_tools
-    defaultConfig {
-        minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import com.ocakmali.brewway.R
+import com.ocakmali.brewway.datamodel.CoffeeView
+
+class CoffeesAdapter(private val listener: CoffeesActionListener
+) : PagedListAdapter<CoffeeView, CoffeesViewHolder>(DIFF_UTIL) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoffeesViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_equipments, parent, false)
+        return CoffeesViewHolder(view, listener)
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    override fun onBindViewHolder(holder: CoffeesViewHolder, position: Int) {
+        val coffee = getItem(position)
+        coffee?.let { holder.bind(it) }
+    }
+
+    companion object {
+        private val DIFF_UTIL = object : DiffUtil.ItemCallback<CoffeeView>(){
+            override fun areItemsTheSame(oldItem: CoffeeView, newItem: CoffeeView) = oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: CoffeeView, newItem: CoffeeView) = oldItem == newItem
         }
     }
-}
-
-dependencies {
-    api project(':domain')
-    api project(':common')
-
-    implementation deps.kotlin.stdlib
-
-    implementation deps.coroutines.core
-
-    implementation deps.room.runtime
-    kapt deps.room.compiler
-
-    implementation deps.paging
 }

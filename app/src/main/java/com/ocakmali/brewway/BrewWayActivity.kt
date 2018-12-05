@@ -26,11 +26,42 @@ package com.ocakmali.brewway
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import kotlinx.android.synthetic.main.activity_brew_way.*
+import kotlinx.android.synthetic.main.layout_container.*
 
 class BrewWayActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brew_way)
+
+        val navController = findNavController(R.id.nav_host)
+
+        setupToolbar(navController)
+        setupBottomNav(navController)
+        nav_view?.setupWithNavController(navController)
+    }
+
+    private fun setupToolbar(navController: NavController) {
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.dest_recipes,
+                R.id.dest_timer,
+                R.id.dest_equipment),
+                drawer_layout
+        )
+        toolbar.setupWithNavController(navController,appBarConfiguration)
+    }
+
+    private fun setupBottomNav(navController: NavController) {
+        bottom_nav?.setupWithNavController(navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.nav_host).navigateUp(drawer_layout)
     }
 }
