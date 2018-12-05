@@ -26,8 +26,8 @@ package com.example.data.repository
 
 import com.example.common.DispatchersProvider
 import com.example.data.dao.CoffeeDao
-import com.example.data.entity.mapFromEntity
-import com.example.data.entity.mapToEntity
+import com.example.data.entity.toCoffee
+import com.example.data.entity.toEntity
 import com.ocakmali.domain.model.Coffee
 import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeRepository
@@ -38,19 +38,11 @@ class CoffeeRepository(
         private val dispatchers: DispatchersProvider
 ) : ICoffeeRepository {
 
-    override suspend fun loadCoffees(): Result<Exception, List<Coffee>> {
-       return Result.buildValue {
-           withContext(dispatchers.io) {
-               dao.loadCoffees().map { coffeeEntity ->
-                   coffeeEntity.mapFromEntity()
-               }
-           }
-       }
-    }
+    override fun loadCoffees() = dao.loadCoffees().map { it.toCoffee() }
 
     override suspend fun addCoffee(coffee: Coffee): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(coffee.mapToEntity()) }
+            withContext(dispatchers.io) { dao.insert(coffee.toEntity()) }
         }
     }
 
@@ -58,7 +50,7 @@ class CoffeeRepository(
         return Result.buildValue {
             withContext(dispatchers.io) {
                 dao.insert(coffees.map { coffee ->
-                    coffee.mapToEntity()
+                    coffee.toEntity()
                 })
             }
         }
@@ -66,7 +58,7 @@ class CoffeeRepository(
 
     override suspend fun deleteCoffee(coffee: Coffee): Result<Exception, Unit> {
         return Result.buildValue {
-            withContext(dispatchers.io) { dao.delete(coffee.mapToEntity()) }
+            withContext(dispatchers.io) { dao.delete(coffee.toEntity()) }
         }
     }
 }

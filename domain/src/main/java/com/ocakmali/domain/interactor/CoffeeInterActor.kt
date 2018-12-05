@@ -25,24 +25,15 @@
 package com.ocakmali.domain.interactor
 
 import com.ocakmali.domain.model.Coffee
-import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeRepository
 
-class CoffeeInteractor(private val repository: ICoffeeRepository) {
+class CoffeeInterActor(private val repository: ICoffeeRepository) {
 
-    suspend fun loadCoffees(handleResult: Result<Exception, List<Coffee>>.() -> Unit) {
-        handleResult(repository.loadCoffees())
-    }
+    fun loadCoffees() = repository.loadCoffees()
 
-    suspend fun addCoffee(coffee: Coffee, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffee(coffee))
-    }
+    suspend fun addCoffee(coffee: Coffee) = repository.addCoffee(coffee)
 
-    suspend fun addCoffees(coffees: List<Coffee>, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffees(coffees))
-    }
+    suspend fun addCoffees(coffees: List<Coffee>) = repository.addCoffees(coffees)
 
-    suspend fun deleteCoffee(coffee: Coffee, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.deleteCoffee(coffee))
-    }
+    suspend fun deleteCoffee(coffee: Coffee) = repository.deleteCoffee(coffee)
 }
