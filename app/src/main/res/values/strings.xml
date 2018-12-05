@@ -5,4 +5,6 @@
     <string name="equipment">Equipment</string>
     <string name="coffee">Coffee</string>
     <string name="coffees">Coffees</string>
+    <string name="coffee_makers">Coffee Makers</string>
+    <string name="coffee_maker">Coffee Maker</string>
 </resources>

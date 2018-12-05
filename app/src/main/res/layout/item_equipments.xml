@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_delete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Colombia"/>
+        tools:text="Ethiopia"/>
 
     <ImageButton
         android:id="@+id/btn_delete"
@@ -26,6 +26,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="@dimen/margin_small"
         android:layout_marginStart="@dimen/margin_small"
+        android:padding="@dimen/margin_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

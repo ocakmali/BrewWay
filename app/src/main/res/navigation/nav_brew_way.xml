@@ -43,5 +43,5 @@
         android:id="@+id/dest_equipment"
         android:name="com.ocakmali.brewway.equipments.EquipmentFragment"
         android:label="@string/equipment"
-        tools:layout="@layout/fragment_equipment"/>
+        tools:layout="@layout/fragment_equipments"/>
 </navigation>
