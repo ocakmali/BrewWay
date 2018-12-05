@@ -22,15 +22,20 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.brewway.di
+package com.ocakmali.brewway.extensions
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import org.koin.dsl.module.module
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
 
-val domainModule = module {
-
-    //Interactor
-    factory { CoffeeInterActor(get()) }
-    factory { CoffeeMakerInterActor(get()) }
+fun EditText.setOnActionDoneClickListener(action: (TextView) -> Unit) {
+    setOnEditorActionListener { view, actionId, _ ->
+        return@setOnEditorActionListener when(actionId) {
+            EditorInfo.IME_ACTION_DONE -> {
+                action.invoke(view)
+                true
+            }
+            else -> false
+        }
+    }
 }

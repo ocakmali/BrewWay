@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_coffee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_coffee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/coffee"
+            android:imeOptions="actionDone"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/layout_equipments_grid_recycler"/>
+</LinearLayout>

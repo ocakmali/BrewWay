@@ -22,15 +22,13 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.brewway.di
+package com.ocakmali.brewway.equipments.coffees
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import org.koin.dsl.module.module
+import com.ocakmali.brewway.datamodel.CoffeeView
 
-val domainModule = module {
+interface CoffeesActionListener {
 
-    //Interactor
-    factory { CoffeeInterActor(get()) }
-    factory { CoffeeMakerInterActor(get()) }
+    fun onDoneClick(coffeeView: CoffeeView)
+
+    fun onDeleteClick(coffeeView: CoffeeView)
 }

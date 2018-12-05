@@ -22,15 +22,24 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.brewway.di
+package com.ocakmali.brewway.base
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import org.koin.dsl.module.module
+import androidx.lifecycle.ViewModel
+import com.example.common.DispatchersProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlin.coroutines.CoroutineContext
 
-val domainModule = module {
+abstract class BaseViewModel(protected val dispatchers: DispatchersProvider) : ViewModel(), CoroutineScope {
 
-    //Interactor
-    factory { CoffeeInterActor(get()) }
-    factory { CoffeeMakerInterActor(get()) }
+    protected val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = dispatchers.ui + job
+
+    override fun onCleared() {
+        if (!job.isCancelled) {
+            job.cancel()
+        }
+        super.onCleared()
+    }
 }

@@ -3,4 +3,6 @@
     <string name="recipes">Recipes</string>
     <string name="timer">Timer</string>
     <string name="equipment">Equipment</string>
+    <string name="coffee">Coffee</string>
+    <string name="coffees">Coffees</string>
 </resources>
