@@ -38,15 +38,7 @@ class CoffeeMakerRepository(
         private val dispatchers: DispatchersProvider
 ) : ICoffeeMakerRepository {
 
-    override suspend fun loadCoffeeMakers(): Result<Exception, List<CoffeeMaker>> {
-        return Result.buildValue {
-            withContext(dispatchers.io) {
-                dao.loadCoffeeMakers().map { makerEntity ->
-                    makerEntity.toCoffeeMaker()
-                }
-            }
-        }
-    }
+    override fun loadCoffeeMakers() = dao.loadCoffeeMakers().map { it.toCoffeeMaker() }
 
     override suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
         return Result.buildValue {

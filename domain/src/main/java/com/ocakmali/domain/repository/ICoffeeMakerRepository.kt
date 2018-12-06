@@ -24,12 +24,13 @@
 
 package com.ocakmali.domain.repository
 
+import androidx.paging.DataSource
 import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.model.Result
 
 interface ICoffeeMakerRepository {
 
-    suspend fun loadCoffeeMakers(): Result<Exception, List<CoffeeMaker>>
+    fun loadCoffeeMakers(): DataSource.Factory<Int, CoffeeMaker>
 
     suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit>
 

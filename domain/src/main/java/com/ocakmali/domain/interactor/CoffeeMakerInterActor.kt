@@ -30,19 +30,11 @@ import com.ocakmali.domain.repository.ICoffeeMakerRepository
 
 class CoffeeMakerInterActor(private val repository: ICoffeeMakerRepository) {
 
-    suspend fun loadCoffeeMakers(handleResult: Result<Exception, List<CoffeeMaker>>.() -> Unit) {
-        handleResult(repository.loadCoffeeMakers())
-    }
+    fun loadCoffeeMakers() = repository.loadCoffeeMakers()
 
-    suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffeeMaker(coffeeMaker))
-    }
+    suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker) = repository.addCoffeeMaker(coffeeMaker)
 
-    suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addCoffeeMakers(coffeeMakers))
-    }
+    suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>) = repository.addCoffeeMakers(coffeeMakers)
 
-    suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.deleteCoffeeMaker(coffeeMaker))
-    }
+    suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker) = repository.deleteCoffeeMaker(coffeeMaker)
 }
