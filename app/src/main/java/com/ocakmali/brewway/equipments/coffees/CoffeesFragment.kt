@@ -22,8 +22,8 @@ class CoffeesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_coffees, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         val adapter = CoffeesAdapter(object : CoffeesActionListener {
             override fun onDoneClick(coffeeView: CoffeeView) {
@@ -46,8 +46,9 @@ class CoffeesFragment : Fragment() {
 
             coffeeInsertion.observe(viewLifecycleOwner, Observer {
                 it.result({}, {
-                    edit_coffee.setText("")
-                    edit_coffee.clearFocus()
+                    if (!edit_coffee.text.isNullOrEmpty()) {
+                        edit_coffee.setText("")
+                    }
                 })
             })
 

@@ -27,24 +27,27 @@ package com.ocakmali.brewway.equipments.coffees
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
-import androidx.recyclerview.widget.RecyclerView
 import com.ocakmali.brewway.R
+import com.ocakmali.brewway.base.BaseViewHolder
 import com.ocakmali.brewway.datamodel.CoffeeView
 import com.ocakmali.brewway.extensions.setOnActionDoneClickListener
 
 
-class CoffeesViewHolder(view: View, private val listener: CoffeesActionListener) : RecyclerView.ViewHolder(view){
-    private val title: EditText = view.findViewById(R.id.tv_coffee)
-    private val delete: ImageButton = view.findViewById(R.id.btn_delete)
+class CoffeesViewHolder(private val listener: CoffeesActionListener,
+                        view: View
+): BaseViewHolder<CoffeeView>(view){
 
-    fun bind(coffeeView: CoffeeView) {
-        title.setText(coffeeView.name)
+    private val coffeeEditText: EditText = view.findViewById(R.id.edit_equipment)
+    private val deleteButton: ImageButton = view.findViewById(R.id.btn_delete)
 
-        title.setOnActionDoneClickListener {
-            listener.onDoneClick(coffeeView.copy(name = it.text.toString()))
+    override fun bind(obj: CoffeeView) {
+        coffeeEditText.setText(obj.name)
+
+        coffeeEditText.setOnActionDoneClickListener {
+            listener.onDoneClick(obj.copy(name = it.text.toString()))
             it.clearFocus()
         }
 
-        delete.setOnClickListener { listener.onDeleteClick(coffeeView) }
+        deleteButton.setOnClickListener { listener.onDeleteClick(obj) }
     }
 }

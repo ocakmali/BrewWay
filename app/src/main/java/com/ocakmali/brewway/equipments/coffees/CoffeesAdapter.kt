@@ -26,22 +26,17 @@ package com.ocakmali.brewway.equipments.coffees
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.ocakmali.brewway.R
+import com.ocakmali.brewway.base.BasePagedListAdapter
 import com.ocakmali.brewway.datamodel.CoffeeView
 
-class CoffeesAdapter(private val listener: CoffeesActionListener
-) : PagedListAdapter<CoffeeView, CoffeesViewHolder>(DIFF_UTIL) {
+class CoffeesAdapter(private val listener: CoffeesActionListener)
+    : BasePagedListAdapter<CoffeeView>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoffeesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_equipments, parent, false)
-        return CoffeesViewHolder(view, listener)
-    }
-
-    override fun onBindViewHolder(holder: CoffeesViewHolder, position: Int) {
-        val coffee = getItem(position)
-        coffee?.let { holder.bind(it) }
+        return CoffeesViewHolder(listener, view)
     }
 
     companion object {
