@@ -12,8 +12,8 @@ import com.ocakmali.domain.interactor.CoffeeInterActor
 import com.ocakmali.domain.model.Result
 import kotlinx.coroutines.launch
 
-class CoffeeViewModel(private val interActor: CoffeeInterActor,
-                      dispatchers: DispatchersProvider) : BaseViewModel(dispatchers) {
+class CoffeesViewModel(private val interActor: CoffeeInterActor,
+                       dispatchers: DispatchersProvider) : BaseViewModel(dispatchers) {
 
     private val _coffeeInsertion = MutableLiveData<Result<Exception, Unit>>()
 

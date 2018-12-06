@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CoffeesFragment : Fragment() {
 
-    private val viewModel: CoffeeViewModel by viewModel()
+    private val viewModel: CoffeesViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_coffees, container, false)

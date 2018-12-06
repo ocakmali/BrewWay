@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_timer"/>
     <fragment
         android:id="@+id/dest_equipment"
-        android:name="com.ocakmali.brewway.equipments.EquipmentFragment"
-        android:label="@string/equipment"
+        android:name="com.ocakmali.brewway.equipments.EquipmentsFragment"
+        android:label="@string/equipments"
         tools:layout="@layout/fragment_equipments"/>
 </navigation>

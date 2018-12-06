@@ -31,7 +31,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ocakmali.brewway.R
 
-class EquipmentFragment : Fragment() {
+class EquipmentsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_equipments, container, false)
