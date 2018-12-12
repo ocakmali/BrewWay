@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.example.common
+package com.ocakmali.common
 
 import kotlinx.coroutines.Dispatchers
 

@@ -3,12 +3,12 @@ package com.ocakmali.brewway.equipments.coffees
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.toLiveData
-import com.example.common.DispatchersProvider
 import com.ocakmali.brewway.base.BaseViewModel
 import com.ocakmali.brewway.datamodel.CoffeeView
 import com.ocakmali.brewway.datamodel.toCoffee
 import com.ocakmali.brewway.datamodel.toView
 import com.ocakmali.brewway.exceptions.EmptyItem
+import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.domain.interactor.CoffeeInterActor
 import com.ocakmali.domain.model.Result
 import kotlinx.coroutines.launch

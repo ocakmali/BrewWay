@@ -24,7 +24,7 @@
 
 package com.ocakmali.brewway.di
 
-import com.example.common.DispatchersProvider
+import com.ocakmali.common.DispatchersProvider
 import org.koin.dsl.module.module
 
 val commonModule = module {

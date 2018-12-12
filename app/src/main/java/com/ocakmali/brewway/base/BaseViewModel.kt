@@ -25,7 +25,7 @@
 package com.ocakmali.brewway.base
 
 import androidx.lifecycle.ViewModel
-import com.example.common.DispatchersProvider
+import com.ocakmali.common.DispatchersProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext

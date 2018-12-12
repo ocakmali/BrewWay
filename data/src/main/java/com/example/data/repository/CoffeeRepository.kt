@@ -24,10 +24,10 @@
 
 package com.example.data.repository
 
-import com.example.common.DispatchersProvider
 import com.example.data.dao.CoffeeDao
 import com.example.data.entity.toCoffee
 import com.example.data.entity.toEntity
+import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.domain.model.Coffee
 import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeRepository
