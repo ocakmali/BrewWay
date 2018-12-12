@@ -26,7 +26,7 @@ package com.ocakmali.domain.repository
 
 import androidx.paging.DataSource
 import com.ocakmali.domain.model.CoffeeMaker
-import com.ocakmali.domain.model.Result
+import com.ocakmali.common.Result
 
 interface ICoffeeMakerRepository {
 

@@ -10,7 +10,7 @@ import com.ocakmali.brewway.datamodel.toView
 import com.ocakmali.brewway.exceptions.EmptyItem
 import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import com.ocakmali.domain.model.Result
+import com.ocakmali.common.Result
 import kotlinx.coroutines.launch
 
 class CoffeeMakersViewModel(private val interActor: CoffeeMakerInterActor,

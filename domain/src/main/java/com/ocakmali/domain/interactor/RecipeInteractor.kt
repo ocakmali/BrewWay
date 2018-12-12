@@ -25,7 +25,7 @@
 package com.ocakmali.domain.interactor
 
 import com.ocakmali.domain.model.Recipe
-import com.ocakmali.domain.model.Result
+import com.ocakmali.common.Result
 import com.ocakmali.domain.repository.IRecipeRepository
 
 class RecipeInteractor(private val repository: IRecipeRepository) {

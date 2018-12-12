@@ -10,7 +10,7 @@ import com.ocakmali.brewway.datamodel.toView
 import com.ocakmali.brewway.exceptions.EmptyItem
 import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.model.Result
+import com.ocakmali.common.Result
 import kotlinx.coroutines.launch
 
 class CoffeesViewModel(private val interActor: CoffeeInterActor,
@@ -21,7 +21,7 @@ class CoffeesViewModel(private val interActor: CoffeeInterActor,
     val coffees = interActor.loadCoffees()
             .map { it.toView() }
             .toLiveData(20)
-    val coffeeInsertion: LiveData<Result<Exception,Unit>> = _coffeeInsertion
+    val coffeeInsertion: LiveData<Result<Exception, Unit>> = _coffeeInsertion
 
     fun addCoffee(coffeeView: CoffeeView) = launch {
         if (coffeeView.name.isEmpty()) {

@@ -25,7 +25,6 @@
 package com.ocakmali.domain.interactor
 
 import com.ocakmali.domain.model.CoffeeMaker
-import com.ocakmali.domain.model.Result
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
 
 class CoffeeMakerInterActor(private val repository: ICoffeeMakerRepository) {

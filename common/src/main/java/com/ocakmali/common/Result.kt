@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.ocakmali.common
 
 sealed class Result<out E, out V> {
 

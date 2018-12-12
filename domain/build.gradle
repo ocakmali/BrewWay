@@ -1,6 +1,8 @@
 apply plugin: 'kotlin'
 
 dependencies {
+    api project(':common')
+
     implementation deps.coroutines.core
 
     implementation deps.paging

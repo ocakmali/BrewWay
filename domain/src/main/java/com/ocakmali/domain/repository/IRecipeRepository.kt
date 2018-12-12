@@ -25,7 +25,7 @@
 package com.ocakmali.domain.repository
 
 import com.ocakmali.domain.model.Recipe
-import com.ocakmali.domain.model.Result
+import com.ocakmali.common.Result
 
 interface IRecipeRepository {
 
