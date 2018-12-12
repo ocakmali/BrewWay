@@ -8,6 +8,7 @@ import com.ocakmali.brewway.base.BaseViewModel
 import com.ocakmali.brewway.datamodel.CoffeeMakerView
 import com.ocakmali.brewway.datamodel.toCoffeeMaker
 import com.ocakmali.brewway.datamodel.toView
+import com.ocakmali.brewway.exceptions.EmptyItem
 import com.ocakmali.domain.interactor.CoffeeMakerInterActor
 import com.ocakmali.domain.model.Result
 import kotlinx.coroutines.launch
@@ -29,8 +30,12 @@ class CoffeeMakersViewModel(private val interActor: CoffeeMakerInterActor,
         get() = _coffeeMakerDeletion
 
     fun addCoffeeMaker(coffeeMakerView: CoffeeMakerView) = launch {
-        interActor.addCoffeeMaker(coffeeMakerView.toCoffeeMaker()).also {
-            _coffeeMakerInsertion.value = it
+        if (coffeeMakerView.name.isEmpty()) {
+            _coffeeMakerInsertion.value = Result.buildError(EmptyItem)
+        } else {
+            interActor.addCoffeeMaker(coffeeMakerView.toCoffeeMaker()).also {
+                _coffeeMakerInsertion.value = it
+            }
         }
     }
 

@@ -36,6 +36,13 @@ sealed class Result<out E, out V> {
         }
     }
 
+    inline fun result(fnE: (E) -> Unit, fnV: () -> Unit) {
+        when (this) {
+            is Error -> fnE(error)
+            is Value -> fnV()
+        }
+    }
+
     companion object {
         inline fun <V> buildValue(action: () -> V): Result<Exception, V> {
             return try {

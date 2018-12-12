@@ -9,7 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.ocakmali.brewway.R
 import com.ocakmali.brewway.datamodel.CoffeeMakerView
+import com.ocakmali.brewway.exceptions.EmptyItem
 import com.ocakmali.brewway.extensions.setOnActionDoneClickListener
+import com.ocakmali.brewway.extensions.toast
 import kotlinx.android.synthetic.main.fragment_coffee_makers.*
 import kotlinx.android.synthetic.main.layout_equipments_grid_recycler.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,16 +48,25 @@ class CoffeeMakersFragment : Fragment() {
             })
 
             coffeeMakerInsertion.observe(viewLifecycleOwner, Observer {
-                it.result({},{
-                    if (!edit_coffee_maker.text.isNullOrEmpty()) {
-                        edit_coffee_maker.setText("")
-                    }
-                })
+                it.result(::notifyException, ::coffeeMakerAddedSuccessfully)
             })
 
             edit_coffee_maker.setOnActionDoneClickListener {
                 addCoffeeMaker(CoffeeMakerView(it.text.toString()))
             }
+        }
+    }
+
+    private fun coffeeMakerAddedSuccessfully() {
+        if (!edit_coffee_maker.text.isNullOrEmpty()) {
+            edit_coffee_maker.setText("")
+        }
+    }
+
+    private fun notifyException(exception: Exception) {
+        when (exception) {
+            is EmptyItem -> toast(R.string.empty_coffee_maker_exception)
+            else -> toast(R.string.something_went_wrong)
         }
     }
 }

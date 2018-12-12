@@ -7,4 +7,8 @@
     <string name="coffees">Coffees</string>
     <string name="coffee_makers">Coffee Makers</string>
     <string name="coffee_maker">Coffee Maker</string>
+
+    <string name="empty_coffee_exception">Can not add an empty coffee</string>
+    <string name="empty_coffee_maker_exception">Can not add an empty coffee maker</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
