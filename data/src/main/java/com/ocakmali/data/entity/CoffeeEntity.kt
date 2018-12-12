@@ -22,18 +22,22 @@
  * SOFTWARE.
  */
 
-package com.example.data.dao
+package com.ocakmali.data.entity
 
-import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Query
-import com.example.data.BaseDao
-import com.example.data.db.CoffeeConstants.TABLE_NAME
-import com.example.data.entity.CoffeeEntity
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.ocakmali.data.db.CoffeeConstants.COLUMN_ID
+import com.ocakmali.data.db.CoffeeConstants.COLUMN_NAME
+import com.ocakmali.data.db.CoffeeConstants.TABLE_NAME
+import com.ocakmali.domain.model.Coffee
 
-@Dao
-abstract class CoffeeDao : BaseDao<CoffeeEntity> {
+internal fun Coffee.toEntity() = CoffeeEntity(name, id)
 
-    @Query("SELECT * FROM $TABLE_NAME")
-    abstract fun loadCoffees(): DataSource.Factory<Int, CoffeeEntity>
-}
+internal fun CoffeeEntity.toCoffee() = Coffee(name, id)
+
+@Entity(tableName = TABLE_NAME)
+data class CoffeeEntity(@ColumnInfo(name = COLUMN_NAME)val name: String,
+                        @PrimaryKey(autoGenerate = true)
+                        @ColumnInfo(name = COLUMN_ID)
+                        val id: Int?)

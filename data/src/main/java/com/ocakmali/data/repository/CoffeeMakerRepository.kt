@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-package com.example.data.repository
+package com.ocakmali.data.repository
 
-import com.example.data.dao.CoffeeMakerDao
-import com.example.data.entity.toCoffeeMaker
-import com.example.data.entity.toEntity
 import com.ocakmali.common.DispatchersProvider
-import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.common.Result
+import com.ocakmali.data.dao.CoffeeMakerDao
+import com.ocakmali.data.entity.toCoffeeMaker
+import com.ocakmali.data.entity.toEntity
+import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
 import kotlinx.coroutines.withContext
 

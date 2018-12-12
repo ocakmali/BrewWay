@@ -22,22 +22,25 @@
  * SOFTWARE.
  */
 
-package com.example.data.entity
+package com.ocakmali.data.db
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.example.data.db.CoffeeConstants.COLUMN_ID
-import com.example.data.db.CoffeeConstants.COLUMN_NAME
-import com.example.data.db.CoffeeConstants.TABLE_NAME
-import com.ocakmali.domain.model.Coffee
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.ocakmali.data.dao.CoffeeDao
+import com.ocakmali.data.dao.CoffeeMakerDao
+import com.ocakmali.data.entity.CoffeeEntity
+import com.ocakmali.data.entity.CoffeeMakerEntity
 
-internal fun Coffee.toEntity() = CoffeeEntity(name, id)
+@Database(
+        entities = [
+            CoffeeEntity::class,
+            CoffeeMakerEntity::class],
+        exportSchema = false,
+        version = 1
+)
+abstract class BrewWayDatabase : RoomDatabase() {
 
-internal fun CoffeeEntity.toCoffee() = Coffee(name, id)
+    abstract fun coffeeDao(): CoffeeDao
 
-@Entity(tableName = TABLE_NAME)
-data class CoffeeEntity(@ColumnInfo(name = COLUMN_NAME)val name: String,
-                        @PrimaryKey(autoGenerate = true)
-                        @ColumnInfo(name = COLUMN_ID)
-                        val id: Int?)
+    abstract fun coffeeMakerDao(): CoffeeMakerDao
+}

@@ -25,10 +25,10 @@
 package com.ocakmali.brewway.di
 
 import androidx.room.Room
-import com.example.data.db.BrewWayDatabase
-import com.example.data.repository.CoffeeMakerRepository
-import com.example.data.repository.CoffeeRepository
 import com.ocakmali.brewway.BuildConfig
+import com.ocakmali.data.db.BrewWayDatabase
+import com.ocakmali.data.repository.CoffeeMakerRepository
+import com.ocakmali.data.repository.CoffeeRepository
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
 import com.ocakmali.domain.repository.ICoffeeRepository
 import org.koin.android.ext.koin.androidApplication

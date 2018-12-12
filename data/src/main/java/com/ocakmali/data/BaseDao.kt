@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.example.data
+package com.ocakmali.data
 
 import androidx.room.Delete
 import androidx.room.Insert

@@ -22,18 +22,18 @@
  * SOFTWARE.
  */
 
-package com.example.data.dao
+package com.ocakmali.data.dao
 
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Query
-import com.example.data.BaseDao
-import com.example.data.db.CoffeeMakerConstants.TABLE_NAME
-import com.example.data.entity.CoffeeMakerEntity
+import com.ocakmali.data.BaseDao
+import com.ocakmali.data.db.CoffeeConstants.TABLE_NAME
+import com.ocakmali.data.entity.CoffeeEntity
 
 @Dao
-abstract class CoffeeMakerDao : BaseDao<CoffeeMakerEntity> {
+abstract class CoffeeDao : BaseDao<CoffeeEntity> {
 
     @Query("SELECT * FROM $TABLE_NAME")
-    abstract fun loadCoffeeMakers(): DataSource.Factory<Int, CoffeeMakerEntity>
+    abstract fun loadCoffees(): DataSource.Factory<Int, CoffeeEntity>
 }

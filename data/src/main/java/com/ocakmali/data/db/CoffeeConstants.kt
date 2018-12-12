@@ -22,21 +22,13 @@
  * SOFTWARE.
  */
 
-package com.example.data.entity
+package com.ocakmali.data.db
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.example.data.db.CoffeeMakerConstants.COLUMN_ID
-import com.example.data.db.CoffeeMakerConstants.COLUMN_NAME
-import com.example.data.db.CoffeeMakerConstants.TABLE_NAME
-import com.ocakmali.domain.model.CoffeeMaker
+object CoffeeConstants {
 
-internal fun CoffeeMakerEntity.toCoffeeMaker() = CoffeeMaker(name, id)
+    const val TABLE_NAME = "coffees"
 
-internal fun CoffeeMaker.toEntity() = CoffeeMakerEntity(name, id)
+    const val COLUMN_ID = "id"
 
-@Entity(tableName = TABLE_NAME)
-data class CoffeeMakerEntity(@ColumnInfo(name = COLUMN_NAME )val name: String,
-                             @PrimaryKey(autoGenerate = true)
-                             @ColumnInfo(name = COLUMN_ID)val id: Int?)
+    const val COLUMN_NAME = "name"
+}

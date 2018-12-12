@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.example.data.db
+package com.ocakmali.data.db
 
 object CoffeeMakerConstants {
 
