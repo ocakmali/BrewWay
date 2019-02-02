@@ -33,32 +33,20 @@ import com.ocakmali.domain.model.Coffee
 import com.ocakmali.domain.repository.ICoffeeRepository
 import kotlinx.coroutines.withContext
 
-class CoffeeRepository(
-        private val dao: CoffeeDao,
-        private val dispatchers: DispatchersProvider
-) : ICoffeeRepository {
+class CoffeeRepository(private val dao: CoffeeDao,
+                       private val dispatchers: DispatchersProvider) : ICoffeeRepository {
 
     override fun loadCoffees() = dao.loadCoffees().map { it.toCoffee() }
 
-    override suspend fun addCoffee(coffee: Coffee): Result<Exception, Unit> {
-        return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(coffee.toEntity()) }
-        }
+    override suspend fun addCoffee(coffee: Coffee) = withContext(dispatchers.io) {
+        Result.value { dao.insert(coffee.toEntity()) }
     }
 
-    override suspend fun addCoffees(coffees: List<Coffee>): Result<Exception, Unit> {
-        return Result.buildValue {
-            withContext(dispatchers.io) {
-                dao.insert(coffees.map { coffee ->
-                    coffee.toEntity()
-                })
-            }
-        }
+    override suspend fun addCoffees(coffees: List<Coffee>) = withContext(dispatchers.io) {
+        Result.value { dao.insert(coffees.map { it.toEntity() }) }
     }
 
-    override suspend fun deleteCoffee(coffee: Coffee): Result<Exception, Unit> {
-        return Result.buildValue {
-            withContext(dispatchers.io) { dao.delete(coffee.toEntity()) }
-        }
+    override suspend fun deleteCoffee(coffee: Coffee) = withContext(dispatchers.io) {
+        Result.value { dao.delete(coffee.toEntity()) }
     }
 }

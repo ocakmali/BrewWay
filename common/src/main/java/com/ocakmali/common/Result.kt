@@ -44,7 +44,7 @@ sealed class Result<out E, out V> {
     }
 
     companion object {
-        inline fun <V> buildValue(action: () -> V): Result<Exception, V> {
+        inline fun <V> value(action: () -> V): Result<Exception, V> {
             return try {
                 Value(action())
             } catch (e: Exception){

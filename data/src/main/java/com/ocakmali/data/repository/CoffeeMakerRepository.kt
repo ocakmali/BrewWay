@@ -33,32 +33,20 @@ import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
 import kotlinx.coroutines.withContext
 
-class CoffeeMakerRepository(
-        private val dao: CoffeeMakerDao,
-        private val dispatchers: DispatchersProvider
-) : ICoffeeMakerRepository {
+class CoffeeMakerRepository(private val dao: CoffeeMakerDao,
+                            private val dispatchers: DispatchersProvider) : ICoffeeMakerRepository {
 
     override fun loadCoffeeMakers() = dao.loadCoffeeMakers().map { it.toCoffeeMaker() }
 
-    override suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
-        return Result.buildValue {
-            withContext(dispatchers.io) { dao.insert(coffeeMaker.toEntity()) }
-        }
+    override suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker) = withContext(dispatchers.io) {
+        Result.value { dao.insert(coffeeMaker.toEntity()) }
     }
 
-    override suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>): Result<Exception, Unit> {
-        return Result.buildValue {
-            withContext(dispatchers.io) {
-                dao.insert(coffeeMakers.map { maker ->
-                    maker.toEntity()
-                })
-            }
-        }
+    override suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>) = withContext(dispatchers.io){
+        Result.value { dao.insert(coffeeMakers.map { it.toEntity() }) }
     }
 
-    override suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit> {
-        return Result.buildValue {
-            withContext(dispatchers.io) { dao.delete(coffeeMaker.toEntity()) }
-        }
+    override suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker) = withContext(dispatchers.io){
+        Result.value { dao.delete(coffeeMaker.toEntity()) }
     }
 }
