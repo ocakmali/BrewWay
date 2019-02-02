@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,19 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.ocakmali.domain.repository
 
-data class Grinder(val name: String,
-                   val id: Int? = null)
+import androidx.paging.DataSource
+import com.ocakmali.common.Result
+import com.ocakmali.domain.model.Grinder
+
+interface IGrinderRepository {
+
+    fun loadGrinders(): DataSource.Factory<Int, Grinder>
+
+    suspend fun addGrinder(grinder: Grinder): Result<Exception, Unit>
+
+    suspend fun addGrinders(grinders: List<Grinder>): Result<Exception, Unit>
+
+    suspend fun deleteGrinder(grinder: Grinder): Result<Exception, Unit>
+}

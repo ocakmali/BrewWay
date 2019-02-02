@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,19 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.ocakmali.domain.interactor
 
-data class Grinder(val name: String,
-                   val id: Int? = null)
+import com.ocakmali.domain.model.Grinder
+import com.ocakmali.domain.repository.IGrinderRepository
+
+class GrinderInterActor(private val repository: IGrinderRepository) {
+
+    fun loadGrinders() = repository.loadGrinders()
+
+    suspend fun addGrinder(grinder: Grinder) = repository.addGrinder(grinder)
+
+    suspend fun addGrinders(grinders: List<Grinder>) = repository.addGrinders(grinders)
+
+    suspend fun deleteGrinder(grinder: Grinder) = repository.deleteGrinder(grinder)
+
+}
