@@ -17,11 +17,10 @@ class CoffeesViewModel(private val interActor: CoffeeInterActor,
                        dispatchers: DispatchersProvider) : BaseViewModel(dispatchers) {
 
     private val _coffeeInsertion = MutableLiveData<Result<Exception, Unit>>()
-
     val coffees = interActor.loadCoffees()
             .map { it.toView() }
             .toLiveData(20)
-    val coffeeInsertion: LiveData<Result<Exception, Unit>> = _coffeeInsertion
+    val coffeeInsertion: LiveData<Result<Exception, Unit>> get() = _coffeeInsertion
 
     fun addCoffee(coffeeView: CoffeeView) = launch {
         if (coffeeView.name.isEmpty()) {
