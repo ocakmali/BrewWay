@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,29 +24,11 @@
 
 package com.ocakmali.data.db
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.ocakmali.data.dao.CoffeeDao
-import com.ocakmali.data.dao.CoffeeMakerDao
-import com.ocakmali.data.dao.GrinderDao
-import com.ocakmali.data.entity.CoffeeEntity
-import com.ocakmali.data.entity.CoffeeMakerEntity
-import com.ocakmali.data.entity.GrinderEntity
+object GrinderConstants {
 
-@Database(
-        entities = [
-            CoffeeEntity::class,
-            CoffeeMakerEntity::class,
-            GrinderEntity::class
-        ],
-        exportSchema = false,
-        version = 1
-)
-abstract class BrewWayDatabase : RoomDatabase() {
+    const val TABLE_NAME = "grinders"
 
-    abstract fun coffeeDao(): CoffeeDao
+    const val COLUMN_NAME = "name"
 
-    abstract fun coffeeMakerDao(): CoffeeMakerDao
-
-    abstract fun grinderDao(): GrinderDao
+    const val COLUMN_ID = "id"
 }

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,31 +22,19 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.data.db
+package com.ocakmali.data.entity
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.ocakmali.data.dao.CoffeeDao
-import com.ocakmali.data.dao.CoffeeMakerDao
-import com.ocakmali.data.dao.GrinderDao
-import com.ocakmali.data.entity.CoffeeEntity
-import com.ocakmali.data.entity.CoffeeMakerEntity
-import com.ocakmali.data.entity.GrinderEntity
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.ocakmali.data.db.GrinderConstants
+import com.ocakmali.domain.model.Grinder
 
-@Database(
-        entities = [
-            CoffeeEntity::class,
-            CoffeeMakerEntity::class,
-            GrinderEntity::class
-        ],
-        exportSchema = false,
-        version = 1
-)
-abstract class BrewWayDatabase : RoomDatabase() {
+internal fun GrinderEntity.toGrinder() = Grinder(name, id)
 
-    abstract fun coffeeDao(): CoffeeDao
+internal fun Grinder.toEntity() = GrinderEntity(name, id)
 
-    abstract fun coffeeMakerDao(): CoffeeMakerDao
-
-    abstract fun grinderDao(): GrinderDao
-}
+@Entity(tableName = GrinderConstants.TABLE_NAME)
+data class GrinderEntity(@ColumnInfo(name = GrinderConstants.COLUMN_NAME)val name: String,
+                             @PrimaryKey(autoGenerate = true)
+                             @ColumnInfo(name = GrinderConstants.COLUMN_ID)val id: Int?)

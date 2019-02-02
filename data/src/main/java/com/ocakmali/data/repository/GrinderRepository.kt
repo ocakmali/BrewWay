@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,31 +22,31 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.data.db
+package com.ocakmali.data.repository
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import com.ocakmali.data.dao.CoffeeDao
-import com.ocakmali.data.dao.CoffeeMakerDao
+import com.ocakmali.common.DispatchersProvider
+import com.ocakmali.common.Result
 import com.ocakmali.data.dao.GrinderDao
-import com.ocakmali.data.entity.CoffeeEntity
-import com.ocakmali.data.entity.CoffeeMakerEntity
-import com.ocakmali.data.entity.GrinderEntity
+import com.ocakmali.data.entity.toEntity
+import com.ocakmali.data.entity.toGrinder
+import com.ocakmali.domain.model.Grinder
+import com.ocakmali.domain.repository.IGrinderRepository
+import kotlinx.coroutines.withContext
 
-@Database(
-        entities = [
-            CoffeeEntity::class,
-            CoffeeMakerEntity::class,
-            GrinderEntity::class
-        ],
-        exportSchema = false,
-        version = 1
-)
-abstract class BrewWayDatabase : RoomDatabase() {
+class GrinderRepository(private val dao: GrinderDao,
+                        private val dispatchers: DispatchersProvider) : IGrinderRepository {
 
-    abstract fun coffeeDao(): CoffeeDao
+    override fun loadGrinders() = dao.loadGrinders().map { it.toGrinder() }
 
-    abstract fun coffeeMakerDao(): CoffeeMakerDao
+    override suspend fun addGrinder(grinder: Grinder) = withContext(dispatchers.io) {
+        Result.value { dao.insert(grinder.toEntity()) }
+    }
 
-    abstract fun grinderDao(): GrinderDao
+    override suspend fun addGrinders(grinders: List<Grinder>) = withContext(dispatchers.io) {
+        Result.value { dao.insert(grinders.map { it.toEntity() }) }
+    }
+
+    override suspend fun deleteGrinder(grinder: Grinder) = withContext(dispatchers.io) {
+        Result.value { dao.delete(grinder.toEntity()) }
+    }
 }
