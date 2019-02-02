@@ -18,16 +18,11 @@ class CoffeeMakersViewModel(private val interActor: CoffeeMakerInterActor,
 
     private val _coffeeMakerInsertion = MutableLiveData<Result<Exception, Unit>>()
     private val _coffeeMakerDeletion = MutableLiveData<Result<Exception, Unit>>()
-
     val coffeeMakers = interActor.loadCoffeeMakers()
             .map { it.toView() }
             .toLiveData(20)
-
-    val coffeeMakerInsertion: LiveData<Result<Exception, Unit>>
-        get() = _coffeeMakerInsertion
-
-    val coffeeMakerDeletion: LiveData<Result<Exception, Unit>>
-        get() = _coffeeMakerDeletion
+    val coffeeMakerInsertion: LiveData<Result<Exception, Unit>> get() = _coffeeMakerInsertion
+    val coffeeMakerDeletion: LiveData<Result<Exception, Unit>> get() = _coffeeMakerDeletion
 
     fun addCoffeeMaker(coffeeMakerView: CoffeeMakerView) = launch {
         if (coffeeMakerView.name.isEmpty()) {
