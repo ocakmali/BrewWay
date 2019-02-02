@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,10 @@ import com.ocakmali.brewway.BuildConfig
 import com.ocakmali.data.db.BrewWayDatabase
 import com.ocakmali.data.repository.CoffeeMakerRepository
 import com.ocakmali.data.repository.CoffeeRepository
+import com.ocakmali.data.repository.GrinderRepository
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
 import com.ocakmali.domain.repository.ICoffeeRepository
+import com.ocakmali.domain.repository.IGrinderRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.module
 
@@ -46,8 +48,10 @@ val dataModule = module {
     }
     factory { get<BrewWayDatabase>().coffeeDao() }
     factory { get<BrewWayDatabase>().coffeeMakerDao() }
+    factory { get<BrewWayDatabase>().grinderDao() }
 
     //Repository
     single<ICoffeeRepository> { CoffeeRepository(get(), get()) }
     single<ICoffeeMakerRepository> { CoffeeMakerRepository(get(), get()) }
+    single<IGrinderRepository> { GrinderRepository(get(), get()) }
 }

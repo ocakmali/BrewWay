@@ -22,17 +22,13 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.brewway.di
+package com.ocakmali.brewway.datamodel
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import com.ocakmali.domain.interactor.GrinderInterActor
-import org.koin.dsl.module.module
+import com.ocakmali.domain.model.Grinder
 
-val domainModule = module {
+internal fun GrinderView.toGrinder() = Grinder(name, id)
 
-    //Interactor
-    factory { CoffeeInterActor(get()) }
-    factory { CoffeeMakerInterActor(get()) }
-    factory { GrinderInterActor(get()) }
-}
+internal fun Grinder.toView() = GrinderView(name, id)
+
+data class GrinderView(val name: String,
+                       val id: Int? = null)
