@@ -31,4 +31,4 @@ internal fun CoffeeView.toCoffee() = Coffee(name, id)
 internal fun Coffee.toView() = CoffeeView(name, id)
 
 data class CoffeeView(val name: String,
-                      val id: Int? = null)
+                      val id: Int = 0)

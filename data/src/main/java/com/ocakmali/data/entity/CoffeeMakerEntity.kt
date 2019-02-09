@@ -37,6 +37,6 @@ internal fun CoffeeMakerEntity.toCoffeeMaker() = CoffeeMaker(name, id)
 internal fun CoffeeMaker.toEntity() = CoffeeMakerEntity(name, id)
 
 @Entity(tableName = TABLE_NAME)
-data class CoffeeMakerEntity(@ColumnInfo(name = COLUMN_NAME )val name: String,
+data class CoffeeMakerEntity(@ColumnInfo(name = COLUMN_NAME ) val name: String,
                              @PrimaryKey(autoGenerate = true)
-                             @ColumnInfo(name = COLUMN_ID)val id: Int?)
+                             @ColumnInfo(name = COLUMN_ID) val id: Int)

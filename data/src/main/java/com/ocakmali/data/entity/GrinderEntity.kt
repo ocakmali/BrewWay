@@ -27,14 +27,16 @@ package com.ocakmali.data.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.ocakmali.data.db.GrinderConstants
+import com.ocakmali.data.db.GrinderConstants.COLUMN_ID
+import com.ocakmali.data.db.GrinderConstants.COLUMN_NAME
+import com.ocakmali.data.db.GrinderConstants.TABLE_NAME
 import com.ocakmali.domain.model.Grinder
 
 internal fun GrinderEntity.toGrinder() = Grinder(name, id)
 
 internal fun Grinder.toEntity() = GrinderEntity(name, id)
 
-@Entity(tableName = GrinderConstants.TABLE_NAME)
-data class GrinderEntity(@ColumnInfo(name = GrinderConstants.COLUMN_NAME)val name: String,
-                             @PrimaryKey(autoGenerate = true)
-                             @ColumnInfo(name = GrinderConstants.COLUMN_ID)val id: Int?)
+@Entity(tableName = TABLE_NAME)
+data class GrinderEntity(@ColumnInfo(name = COLUMN_NAME) val name: String,
+                         @PrimaryKey(autoGenerate = true)
+                         @ColumnInfo(name = COLUMN_ID) val id: Int)

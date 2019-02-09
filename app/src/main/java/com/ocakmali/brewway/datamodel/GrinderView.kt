@@ -31,4 +31,4 @@ internal fun GrinderView.toGrinder() = Grinder(name, id)
 internal fun Grinder.toView() = GrinderView(name, id)
 
 data class GrinderView(val name: String,
-                       val id: Int? = null)
+                       val id: Int = 0)

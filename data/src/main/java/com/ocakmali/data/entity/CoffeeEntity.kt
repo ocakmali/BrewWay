@@ -37,7 +37,6 @@ internal fun Coffee.toEntity() = CoffeeEntity(name, id)
 internal fun CoffeeEntity.toCoffee() = Coffee(name, id)
 
 @Entity(tableName = TABLE_NAME)
-data class CoffeeEntity(@ColumnInfo(name = COLUMN_NAME)val name: String,
+data class CoffeeEntity(@ColumnInfo(name = COLUMN_NAME) val name: String,
                         @PrimaryKey(autoGenerate = true)
-                        @ColumnInfo(name = COLUMN_ID)
-                        val id: Int?)
+                        @ColumnInfo(name = COLUMN_ID) val id: Int)

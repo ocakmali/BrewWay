@@ -25,4 +25,4 @@
 package com.ocakmali.domain.model
 
 data class Grinder(val name: String,
-                   val id: Int? = null)
+                   val id: Int)
