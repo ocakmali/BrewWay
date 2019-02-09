@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,18 @@
  * SOFTWARE.
  */
 
-package com.ocakmali.domain.model
+package com.ocakmali.domain.repository
 
-data class RecipeTimestamp(val time: Long,
-                           val note: String,
-                           val recipeId: Int,
-                           val id: Int)
+import com.ocakmali.common.Result
+import com.ocakmali.domain.model.RecipeTimestamp
+
+interface IRecipeTimestampRepository {
+
+    suspend fun loadTimestampsByRecipeId(recipeId: Int): Result<Exception, List<RecipeTimestamp>>
+
+    suspend fun addTimestamp(timestamp: RecipeTimestamp): Result<Exception, Unit>
+
+    suspend fun addTimestamps(timestamps: List<RecipeTimestamp>): Result<Exception, Unit>
+
+    suspend fun deleteTimestamp(timestamp: RecipeTimestamp): Result<Exception, Unit>
+}
