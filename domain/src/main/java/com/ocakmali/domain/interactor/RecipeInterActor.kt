@@ -25,24 +25,19 @@
 package com.ocakmali.domain.interactor
 
 import com.ocakmali.domain.model.Recipe
-import com.ocakmali.common.Result
+import com.ocakmali.domain.model.RecipeTimestamp
 import com.ocakmali.domain.repository.IRecipeRepository
 
-class RecipeInteractor(private val repository: IRecipeRepository) {
+class RecipeInterActor(private val repository: IRecipeRepository) {
 
-    suspend fun loadRecipes(handleResult: Result<Exception, List<Recipe>>.() -> Unit) {
-        handleResult(repository.loadRecipes())
-    }
+    fun loadRecipes() = repository.loadRecipes()
 
-    suspend fun addRecipe(recipe: Recipe, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.addRecipe(recipe))
-    }
+    suspend fun addRecipe(recipe: Recipe) = repository.addRecipe(recipe)
 
-    suspend fun updateRecipe(recipeId: Long, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.updateRecipe(recipeId))
-    }
+    suspend fun addRecipes(recipes: List<Recipe>) = repository.addRecipes(recipes)
 
-    suspend fun deleteRecipe(recipeId: Long, handleResult: Result<Exception, Unit>.() -> Unit) {
-        handleResult(repository.deleteRecipe(recipeId))
-    }
+    suspend fun addRecipeAndTimestamps(recipe: Recipe, timestamps: List<RecipeTimestamp>) =
+            repository.addRecipeAndTimestamps(recipe, timestamps)
+
+    suspend fun deleteRecipe(recipe: Recipe) = repository.deleteRecipe(recipe)
 }

@@ -24,16 +24,20 @@
 
 package com.ocakmali.domain.repository
 
+import androidx.paging.DataSource
 import com.ocakmali.domain.model.Recipe
 import com.ocakmali.common.Result
+import com.ocakmali.domain.model.RecipeTimestamp
 
 interface IRecipeRepository {
 
-    suspend fun loadRecipes(): Result<Exception, List<Recipe>>
+    fun loadRecipes(): DataSource.Factory<Int, Recipe>
 
     suspend fun addRecipe(recipe: Recipe): Result<Exception, Unit>
 
-    suspend fun updateRecipe(recipeId: Long): Result<Exception, Unit>
+    suspend fun addRecipeAndTimestamps(recipe: Recipe, timestamps: List<RecipeTimestamp>): Result<Exception, Unit>
 
-    suspend fun deleteRecipe(recipeId: Long): Result<Exception, Unit>
+    suspend fun addRecipes(recipes: List<Recipe>): Result<Exception, Unit>
+
+    suspend fun deleteRecipe(recipe: Recipe): Result<Exception, Unit>
 }
