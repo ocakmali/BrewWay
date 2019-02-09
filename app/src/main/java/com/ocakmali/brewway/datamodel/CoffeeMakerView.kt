@@ -7,4 +7,4 @@ internal fun CoffeeMakerView.toCoffeeMaker() = CoffeeMaker(name, id)
 internal fun CoffeeMaker.toView() = CoffeeMakerView(name, id)
 
 data class CoffeeMakerView(val name: String,
-                      val id: Int? = null)
+                           val id: Int = 0)

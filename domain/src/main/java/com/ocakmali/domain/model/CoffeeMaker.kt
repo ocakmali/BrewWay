@@ -25,4 +25,4 @@
 package com.ocakmali.domain.model
 
 data class CoffeeMaker(val name: String,
-                       val id: Int?)
+                       val id: Int)
