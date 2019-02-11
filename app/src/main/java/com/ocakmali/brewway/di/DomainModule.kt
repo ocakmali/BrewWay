@@ -24,9 +24,7 @@
 
 package com.ocakmali.brewway.di
 
-import com.ocakmali.domain.interactor.CoffeeInterActor
-import com.ocakmali.domain.interactor.CoffeeMakerInterActor
-import com.ocakmali.domain.interactor.GrinderInterActor
+import com.ocakmali.domain.interactor.*
 import org.koin.dsl.module.module
 
 val domainModule = module {
@@ -35,4 +33,6 @@ val domainModule = module {
     factory { CoffeeInterActor(get()) }
     factory { CoffeeMakerInterActor(get()) }
     factory { GrinderInterActor(get()) }
+    factory { RecipeInterActor(get()) }
+    factory { RecipeTimestampInterActor(get()) }
 }
