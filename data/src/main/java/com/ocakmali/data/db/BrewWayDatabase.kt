@@ -26,22 +26,20 @@ package com.ocakmali.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.ocakmali.data.dao.CoffeeDao
-import com.ocakmali.data.dao.CoffeeMakerDao
-import com.ocakmali.data.dao.GrinderDao
-import com.ocakmali.data.entity.CoffeeEntity
-import com.ocakmali.data.entity.CoffeeMakerEntity
-import com.ocakmali.data.entity.GrinderEntity
+import com.ocakmali.data.dao.*
+import com.ocakmali.data.entity.*
 
 @Database(
         entities = [
             CoffeeEntity::class,
             CoffeeMakerEntity::class,
-            GrinderEntity::class
+            GrinderEntity::class,
+            RecipeTimestampEntity::class,
+            RecipeEntity::class
         ],
+        views = [RecipeAndEquipments::class],
         exportSchema = false,
-        version = 1
-)
+        version = 1)
 abstract class BrewWayDatabase : RoomDatabase() {
 
     abstract fun coffeeDao(): CoffeeDao
@@ -49,4 +47,8 @@ abstract class BrewWayDatabase : RoomDatabase() {
     abstract fun coffeeMakerDao(): CoffeeMakerDao
 
     abstract fun grinderDao(): GrinderDao
+
+    abstract fun recipeTimestampDao(): RecipeTimestampDao
+
+    abstract fun recipeDao(): RecipeDao
 }
