@@ -28,7 +28,7 @@ object GrinderConstants {
 
     const val TABLE_NAME = "grinders"
 
-    const val COLUMN_NAME = "name"
+    const val COLUMN_NAME = "grinder_name"
 
-    const val COLUMN_ID = "id"
+    const val COLUMN_ID = "grinder_id"
 }
