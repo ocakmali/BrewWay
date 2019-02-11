@@ -27,12 +27,8 @@ package com.ocakmali.brewway.di
 import androidx.room.Room
 import com.ocakmali.brewway.BuildConfig
 import com.ocakmali.data.db.BrewWayDatabase
-import com.ocakmali.data.repository.CoffeeMakerRepository
-import com.ocakmali.data.repository.CoffeeRepository
-import com.ocakmali.data.repository.GrinderRepository
-import com.ocakmali.domain.repository.ICoffeeMakerRepository
-import com.ocakmali.domain.repository.ICoffeeRepository
-import com.ocakmali.domain.repository.IGrinderRepository
+import com.ocakmali.data.repository.*
+import com.ocakmali.domain.repository.*
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.module
 
@@ -49,9 +45,13 @@ val dataModule = module {
     factory { get<BrewWayDatabase>().coffeeDao() }
     factory { get<BrewWayDatabase>().coffeeMakerDao() }
     factory { get<BrewWayDatabase>().grinderDao() }
+    factory { get<BrewWayDatabase>().recipeDao() }
+    factory { get<BrewWayDatabase>().recipeTimestampDao() }
 
     //Repository
     single<ICoffeeRepository> { CoffeeRepository(get(), get()) }
     single<ICoffeeMakerRepository> { CoffeeMakerRepository(get(), get()) }
     single<IGrinderRepository> { GrinderRepository(get(), get()) }
+    single<IRecipeRepository> { RecipeRepository(get(), get(), get()) }
+    single<IRecipeTimestampRepository> { RecipeTimestampRepository(get(), get()) }
 }
