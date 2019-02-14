@@ -27,6 +27,7 @@ package com.ocakmali.brewway.di
 import com.ocakmali.brewway.equipments.coffeemakers.CoffeeMakersViewModel
 import com.ocakmali.brewway.equipments.coffees.CoffeesViewModel
 import com.ocakmali.brewway.equipments.grinders.GrindersViewModel
+import com.ocakmali.brewway.recipes.RecipesViewModel
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
@@ -36,4 +37,5 @@ val appModule = module {
     viewModel { CoffeesViewModel(get(), get()) }
     viewModel { CoffeeMakersViewModel(get(), get()) }
     viewModel { GrindersViewModel(get(), get()) }
+    viewModel { RecipesViewModel(get(), get()) }
 }
