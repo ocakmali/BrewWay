@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2018 Mehmet Ali Ocak
+ * Copyright (c) 2019 Mehmet Ali Ocak
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,37 +24,26 @@
 
 package com.ocakmali.brewway.recipes
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DiffUtil
 import com.ocakmali.brewway.R
-import kotlinx.android.synthetic.main.fragment_recipes.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.ocakmali.brewway.base.BasePagedListAdapter
+import com.ocakmali.brewway.base.BaseViewHolder
+import com.ocakmali.brewway.datamodel.RecipeView
 
-class RecipesFragment : Fragment() {
+class RecipesAdapter : BasePagedListAdapter<RecipeView>(DIFF_UTIL) {
 
-    private val viewModel: RecipesViewModel by viewModel()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_recipes, container, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<RecipeView> {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recipes, parent, false)
+        return RecipesViewHolder(view)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    companion object {
+        private val DIFF_UTIL = object : DiffUtil.ItemCallback<RecipeView>() {
+            override fun areItemsTheSame(oldItem: RecipeView, newItem: RecipeView) = oldItem.id == newItem.id
 
-        val adapter = RecipesAdapter()
-        rcv_recipes.adapter = adapter
-        val layoutManager = LinearLayoutManager(requireContext())
-        rcv_recipes.layoutManager = layoutManager
-        rcv_recipes.addItemDecoration(DividerItemDecoration(rcv_recipes.context, layoutManager.orientation))
-
-        viewModel.recipes.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+            override fun areContentsTheSame(oldItem: RecipeView, newItem: RecipeView) = oldItem == newItem
+        }
     }
 }
