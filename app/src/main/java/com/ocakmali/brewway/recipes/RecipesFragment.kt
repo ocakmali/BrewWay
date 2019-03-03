@@ -30,6 +30,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ocakmali.brewway.R
@@ -56,5 +57,9 @@ class RecipesFragment : Fragment() {
         viewModel.recipes.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
+
+        fab_new_recipe.setOnClickListener {
+            findNavController().navigate(R.id.action_add_edit_recipe)
+        }
     }
 }
