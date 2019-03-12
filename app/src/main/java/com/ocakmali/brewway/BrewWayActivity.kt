@@ -25,24 +25,45 @@
 package com.ocakmali.brewway
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_brew_way.*
-import kotlinx.android.synthetic.main.layout_container.*
+import kotlinx.android.synthetic.main.layout_main_container.*
 
 class BrewWayActivity : AppCompatActivity() {
+
+    private val navController:NavController  by lazy { findNavController(R.id.nav_host) }
+
+    private var navigationListener = NavController.OnNavigatedListener { _, destination ->
+        when(destination.id) {
+            R.id.dest_recipes,
+            R.id.dest_timer,
+            R.id.dest_equipment -> bottomNavVisible(true)
+            else -> bottomNavVisible(false)
+        }
+    }
+
+    private fun bottomNavVisible(visibility: Boolean) {
+        if(visibility) {
+            if (bottom_nav?.visibility != View.VISIBLE) {
+                bottom_nav?.visibility = View.VISIBLE
+            }
+        } else {
+            if (bottom_nav?.visibility != View.GONE) {
+                bottom_nav?.visibility = View.GONE
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brew_way)
-
-        val navController = findNavController(R.id.nav_host)
-
+        
         setupToolbar(navController)
         setupBottomNav(navController)
         nav_view?.setupWithNavController(navController)
@@ -61,7 +82,17 @@ class BrewWayActivity : AppCompatActivity() {
         bottom_nav?.setupWithNavController(navController)
     }
 
+    override fun onStart() {
+        super.onStart()
+        navController.addOnNavigatedListener(navigationListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        navController.removeOnNavigatedListener(navigationListener)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host).navigateUp(drawer_layout)
+        return navController.navigateUp(drawer_layout)
     }
 }
