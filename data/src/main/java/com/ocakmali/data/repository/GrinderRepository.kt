@@ -49,4 +49,9 @@ class GrinderRepository(private val dao: GrinderDao,
     override suspend fun deleteGrinder(grinder: Grinder) = withContext(dispatchers.io) {
         Result.value { dao.delete(grinder.toEntity()) }
     }
+
+    override suspend fun search(query: String, limit: Int) = withContext(dispatchers.io) {
+        val formattedQuery = String.format("%s*", query)
+        Result.value { dao.search(formattedQuery, limit).map { it.toGrinder() } }
+    }
 }
