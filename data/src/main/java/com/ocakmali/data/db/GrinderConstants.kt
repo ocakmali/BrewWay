@@ -31,4 +31,6 @@ object GrinderConstants {
     const val COLUMN_NAME = "grinder_name"
 
     const val COLUMN_ID = "grinder_id"
+
+    const val FTS_TABLE_NAME = "grinder_fts"
 }
