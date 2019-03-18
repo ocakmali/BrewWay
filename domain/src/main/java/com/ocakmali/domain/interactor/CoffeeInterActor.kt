@@ -31,6 +31,8 @@ class CoffeeInterActor(private val repository: ICoffeeRepository) {
 
     fun loadCoffees() = repository.loadCoffees()
 
+    suspend fun searchCoffees(query: String, limit: Int) = repository.search(query, limit)
+
     suspend fun addCoffee(coffee: Coffee) = repository.addCoffee(coffee)
 
     suspend fun addCoffees(coffees: List<Coffee>) = repository.addCoffees(coffees)
