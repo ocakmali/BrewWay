@@ -31,4 +31,6 @@ object CoffeeMakerConstants {
     const val COLUMN_ID = "coffee_maker_id"
 
     const val COLUMN_NAME = "coffee_maker_name"
+
+    const val FTS_TABLE_NAME = "coffee_maker_fts"
 }
