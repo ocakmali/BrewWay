@@ -28,7 +28,10 @@ import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Query
 import com.ocakmali.data.BaseDao
+import com.ocakmali.data.db.CoffeeMakerConstants.COLUMN_ID
+import com.ocakmali.data.db.CoffeeMakerConstants.FTS_TABLE_NAME
 import com.ocakmali.data.db.CoffeeMakerConstants.TABLE_NAME
+import com.ocakmali.data.db.DbConstants.FTS_DOC_ID
 import com.ocakmali.data.entity.CoffeeMakerEntity
 
 @Dao
@@ -36,4 +39,10 @@ abstract class CoffeeMakerDao : BaseDao<CoffeeMakerEntity> {
 
     @Query("SELECT * FROM $TABLE_NAME")
     abstract fun loadCoffeeMakers(): DataSource.Factory<Int, CoffeeMakerEntity>
+
+    @Query("""SELECT * FROM $TABLE_NAME
+        JOIN $FTS_TABLE_NAME ON $COLUMN_ID = $FTS_DOC_ID
+            WHERE $FTS_TABLE_NAME MATCH :query LIMIT :limit
+            """)
+    abstract fun search(query: String, limit: Int): List<CoffeeMakerEntity>
 }
