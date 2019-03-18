@@ -28,6 +28,9 @@ import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Query
 import com.ocakmali.data.BaseDao
+import com.ocakmali.data.db.DbConstants.FTS_DOC_ID
+import com.ocakmali.data.db.GrinderConstants.COLUMN_ID
+import com.ocakmali.data.db.GrinderConstants.FTS_TABLE_NAME
 import com.ocakmali.data.db.GrinderConstants.TABLE_NAME
 import com.ocakmali.data.entity.GrinderEntity
 
@@ -36,4 +39,10 @@ abstract class GrinderDao : BaseDao<GrinderEntity> {
 
     @Query("SELECT * FROM $TABLE_NAME")
     abstract fun loadGrinders(): DataSource.Factory<Int, GrinderEntity>
+
+    @Query("""SELECT * FROM $TABLE_NAME
+        JOIN $FTS_TABLE_NAME ON $COLUMN_ID = $FTS_DOC_ID
+            WHERE $FTS_TABLE_NAME MATCH :query LIMIT :limit
+            """)
+    abstract fun search(query: String, limit: Int): List<GrinderEntity>
 }
