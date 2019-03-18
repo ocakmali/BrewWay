@@ -49,4 +49,9 @@ class CoffeeRepository(private val dao: CoffeeDao,
     override suspend fun deleteCoffee(coffee: Coffee) = withContext(dispatchers.io) {
         Result.value { dao.delete(coffee.toEntity()) }
     }
+
+    override suspend fun search(query: String, limit: Int) = withContext(dispatchers.io) {
+        val formattedQuery = String.format("%s*", query)
+        Result.value { dao.search(formattedQuery, limit).map { it.toCoffee() } }
+    }
 }
