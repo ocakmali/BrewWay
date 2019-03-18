@@ -55,3 +55,10 @@ sealed class Result<out E, out V> {
         fun <E> buildError(error: E) = Error(error)
     }
 }
+
+fun<E, V, N> Result<E,V>.map(fn: (V) -> N): Result<E, N> {
+    return when (this) {
+        is Result.Error -> Result.Error(error)
+        is Result.Value -> Result.Value(fn(value))
+    }
+}
