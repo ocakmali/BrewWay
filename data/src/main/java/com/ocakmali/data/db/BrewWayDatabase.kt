@@ -32,8 +32,11 @@ import com.ocakmali.data.entity.*
 @Database(
         entities = [
             CoffeeEntity::class,
+            CoffeeFtsEntity::class,
             CoffeeMakerEntity::class,
+            CoffeeMakerFtsEntity::class,
             GrinderEntity::class,
+            GrinderFtsEntity::class,
             RecipeTimestampEntity::class,
             RecipeEntity::class
         ],
