@@ -28,7 +28,7 @@ import androidx.paging.DataSource
 import com.ocakmali.common.Result
 import com.ocakmali.domain.model.Grinder
 
-interface IGrinderRepository {
+interface IGrinderRepository : Searchable<Grinder> {
 
     fun loadGrinders(): DataSource.Factory<Int, Grinder>
 
