@@ -28,7 +28,7 @@ import androidx.paging.DataSource
 import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.common.Result
 
-interface ICoffeeMakerRepository {
+interface ICoffeeMakerRepository : Searchable<CoffeeMaker> {
 
     fun loadCoffeeMakers(): DataSource.Factory<Int, CoffeeMaker>
 
