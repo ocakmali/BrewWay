@@ -7,8 +7,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 
-class SimpleTextWatcher(private val editText: EditText,
-                        private val send: (String) -> Unit)
+class LifecycleTextWatcher(private val editText: EditText,
+                           private val send: (Editable) -> Unit)
     : TextWatcher, LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -32,8 +32,6 @@ class SimpleTextWatcher(private val editText: EditText,
     }
 
     override fun afterTextChanged(s: Editable?) {
-        s?.let {
-            send(s.toString())
-        }
+        s?.let { send.invoke(it) }
     }
 }
