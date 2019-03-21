@@ -1,0 +1,354 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a90d9afbe1be3cfd650a5fc52c0d5f76",
+    "entities": [
+      {
+        "tableName": "coffees",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`coffee_name` TEXT NOT NULL, `coffee_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "coffee_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "coffee_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "coffee_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "coffees",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_fts_BEFORE_UPDATE BEFORE UPDATE ON `coffees` BEGIN DELETE FROM `coffee_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_fts_BEFORE_DELETE BEFORE DELETE ON `coffees` BEGIN DELETE FROM `coffee_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_fts_AFTER_UPDATE AFTER UPDATE ON `coffees` BEGIN INSERT INTO `coffee_fts`(`docid`, `coffee_name`) VALUES (NEW.`rowid`, NEW.`coffee_name`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_fts_AFTER_INSERT AFTER INSERT ON `coffees` BEGIN INSERT INTO `coffee_fts`(`docid`, `coffee_name`) VALUES (NEW.`rowid`, NEW.`coffee_name`); END"
+        ],
+        "tableName": "coffee_fts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`coffee_name` TEXT NOT NULL, content=`coffees`)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "coffee_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "coffee_makers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`coffee_maker_name` TEXT NOT NULL, `coffee_maker_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "coffee_maker_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "coffee_maker_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "coffee_maker_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "coffee_makers",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_maker_fts_BEFORE_UPDATE BEFORE UPDATE ON `coffee_makers` BEGIN DELETE FROM `coffee_maker_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_maker_fts_BEFORE_DELETE BEFORE DELETE ON `coffee_makers` BEGIN DELETE FROM `coffee_maker_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_maker_fts_AFTER_UPDATE AFTER UPDATE ON `coffee_makers` BEGIN INSERT INTO `coffee_maker_fts`(`docid`, `coffee_maker_name`) VALUES (NEW.`rowid`, NEW.`coffee_maker_name`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_coffee_maker_fts_AFTER_INSERT AFTER INSERT ON `coffee_makers` BEGIN INSERT INTO `coffee_maker_fts`(`docid`, `coffee_maker_name`) VALUES (NEW.`rowid`, NEW.`coffee_maker_name`); END"
+        ],
+        "tableName": "coffee_maker_fts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`coffee_maker_name` TEXT NOT NULL, content=`coffee_makers`)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "coffee_maker_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "grinders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`grinder_name` TEXT NOT NULL, `grinder_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "grinder_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "grinder_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "grinder_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "grinders",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_grinder_fts_BEFORE_UPDATE BEFORE UPDATE ON `grinders` BEGIN DELETE FROM `grinder_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_grinder_fts_BEFORE_DELETE BEFORE DELETE ON `grinders` BEGIN DELETE FROM `grinder_fts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_grinder_fts_AFTER_UPDATE AFTER UPDATE ON `grinders` BEGIN INSERT INTO `grinder_fts`(`docid`, `grinder_name`) VALUES (NEW.`rowid`, NEW.`grinder_name`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_grinder_fts_AFTER_INSERT AFTER INSERT ON `grinders` BEGIN INSERT INTO `grinder_fts`(`docid`, `grinder_name`) VALUES (NEW.`rowid`, NEW.`grinder_name`); END"
+        ],
+        "tableName": "grinder_fts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`grinder_name` TEXT NOT NULL, content=`grinders`)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "grinder_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "recipe_timestamps",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recipe_time_stamp_time` INTEGER NOT NULL, `recipe_time_stamp_note` TEXT NOT NULL, `recipe_time_stamp_recipe_id` INTEGER NOT NULL, `recipe_time_stamp_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`recipe_time_stamp_recipe_id`) REFERENCES `recipes`(`recipe_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "time",
+            "columnName": "recipe_time_stamp_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "recipe_time_stamp_note",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipe_time_stamp_recipe_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "recipe_time_stamp_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "recipe_time_stamp_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "recipes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipe_time_stamp_recipe_id"
+            ],
+            "referencedColumns": [
+              "recipe_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "recipes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recipe_title` TEXT NOT NULL, `recipe_coffee_maker_id` INTEGER, `recipe_coffee_id` INTEGER, `recipe_grinder_id` INTEGER, `recipe_coffee_amount` INTEGER NOT NULL, `recipe_water_amount` INTEGER NOT NULL, `recipe_water_temperature` INTEGER NOT NULL, `recipe_created_date` INTEGER NOT NULL, `recipe_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`recipe_coffee_maker_id`) REFERENCES `coffee_makers`(`coffee_maker_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recipe_coffee_id`) REFERENCES `coffees`(`coffee_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recipe_grinder_id`) REFERENCES `grinders`(`grinder_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "title",
+            "columnName": "recipe_title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coffeeMakerId",
+            "columnName": "recipe_coffee_maker_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coffeeId",
+            "columnName": "recipe_coffee_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "grinderId",
+            "columnName": "recipe_grinder_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "coffeeAmount",
+            "columnName": "recipe_coffee_amount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterAmount",
+            "columnName": "recipe_water_amount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "waterTemperature",
+            "columnName": "recipe_water_temperature",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdDate",
+            "columnName": "recipe_created_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "recipe_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "recipe_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "coffee_makers",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipe_coffee_maker_id"
+            ],
+            "referencedColumns": [
+              "coffee_maker_id"
+            ]
+          },
+          {
+            "table": "coffees",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipe_coffee_id"
+            ],
+            "referencedColumns": [
+              "coffee_id"
+            ]
+          },
+          {
+            "table": "grinders",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recipe_grinder_id"
+            ],
+            "referencedColumns": [
+              "grinder_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [
+      {
+        "viewName": "RecipeAndEquipments",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT recipe_title, recipe_coffee_amount, recipe_water_amount, recipe_water_temperature, recipe_created_date, recipe_id,\n     grinders.*,\n      coffees.*,\n       coffee_makers.* FROM recipes\n    INNER JOIN grinders ON grinder_id = recipe_grinder_id\n    OR (grinder_id IS NULL AND recipe_grinder_id  IS NULL)\n    INNER JOIN coffees ON coffee_id = recipe_coffee_id\n    OR (coffee_id IS NULL AND recipe_coffee_id  IS NULL)\n    INNER JOIN coffee_makers ON coffee_maker_id = recipe_coffee_maker_id\n    OR (coffee_maker_id IS NULL AND recipe_coffee_maker_id  IS NULL)"
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a90d9afbe1be3cfd650a5fc52c0d5f76\")"
+    ]
+  }
+}
