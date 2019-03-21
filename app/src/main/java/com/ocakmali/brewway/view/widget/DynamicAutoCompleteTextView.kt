@@ -1,7 +1,6 @@
 package com.ocakmali.brewway.view.widget
 
 import android.content.Context
-import android.graphics.Rect
 import android.text.Editable
 import android.util.AttributeSet
 import androidx.appcompat.R
@@ -30,10 +29,5 @@ class DynamicAutoCompleteTextView @JvmOverloads constructor(context: Context,
 
     fun registerLifecycle(lifecycle: Lifecycle) {
         textWatcher?.registerLifecycle(lifecycle)
-    }
-
-    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect)
-        if (focused) showDropDown()
     }
 }
