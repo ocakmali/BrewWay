@@ -45,9 +45,9 @@ import com.ocakmali.data.db.RecipeConstants.TABLE_NAME
 import com.ocakmali.domain.model.Recipe
 
 internal fun Recipe.toEntity() = RecipeEntity(title,
-        equipment.coffeeMaker.id,
-        equipment.coffee.id,
-        equipment.grinder.id,
+        equipment.coffeeMaker?.id,
+        equipment.coffee?.id,
+        equipment.grinder?.id,
         equipment.coffeeAmount,
         equipment.waterAmount,
         equipment.waterTemperature,
@@ -70,9 +70,9 @@ internal fun Recipe.toEntity() = RecipeEntity(title,
                     onDelete = ForeignKey.CASCADE)
         ])
 data class RecipeEntity(@ColumnInfo(name = COLUMN_TITLE) val title: String,
-                        @ColumnInfo(name = COLUMN_COFFEE_MAKER_ID) val coffeeMakerId: Int,
-                        @ColumnInfo(name = COLUMN_COFFEE_ID) val coffeeId: Int,
-                        @ColumnInfo(name = COLUMN_GRINDER_ID) val grinderId: Int,
+                        @ColumnInfo(name = COLUMN_COFFEE_MAKER_ID) val coffeeMakerId: Int?,
+                        @ColumnInfo(name = COLUMN_COFFEE_ID) val coffeeId: Int?,
+                        @ColumnInfo(name = COLUMN_GRINDER_ID) val grinderId: Int?,
                         @ColumnInfo(name = COLUMN_COFFEE_AMOUNT) val coffeeAmount: Int,
                         @ColumnInfo(name = COLUMN_WATER_AMOUNT) val waterAmount: Int,
                         @ColumnInfo(name = COLUMN_WATER_TEMPERATURE) val waterTemperature: Int,

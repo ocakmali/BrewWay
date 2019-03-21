@@ -30,9 +30,9 @@ data class Recipe(val title: String,
                   val id: Int){
 
 
-    data class Equipment(val coffeeMaker: CoffeeMaker,
-                         val coffee: Coffee,
-                         val grinder: Grinder,
+    data class Equipment(val coffeeMaker: CoffeeMaker?,
+                         val coffee: Coffee?,
+                         val grinder: Grinder?,
                          val coffeeAmount: Int,
                          val waterAmount: Int,
                          val waterTemperature: Int)
