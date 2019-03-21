@@ -45,4 +45,10 @@ abstract class CoffeeMakerDao : BaseDao<CoffeeMakerEntity> {
             WHERE $FTS_TABLE_NAME MATCH :query LIMIT :limit
             """)
     abstract fun search(query: String, limit: Int): List<CoffeeMakerEntity>
+
+    @Query("""SELECT * FROM $TABLE_NAME
+        JOIN $FTS_TABLE_NAME ON $COLUMN_ID = $FTS_DOC_ID
+            WHERE $FTS_TABLE_NAME MATCH :name LIMIT 1
+            """)
+    abstract fun findByName(name: String): CoffeeMakerEntity?
 }

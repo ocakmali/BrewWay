@@ -38,4 +38,6 @@ class CoffeeInterActor(private val repository: ICoffeeRepository) {
     suspend fun addCoffees(coffees: List<Coffee>) = repository.addCoffees(coffees)
 
     suspend fun deleteCoffee(coffee: Coffee) = repository.deleteCoffee(coffee)
+
+    suspend fun findByName(name: String) = repository.findByName(name)
 }

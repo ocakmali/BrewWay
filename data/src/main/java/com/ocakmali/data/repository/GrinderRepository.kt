@@ -29,6 +29,8 @@ import com.ocakmali.common.Result
 import com.ocakmali.data.dao.GrinderDao
 import com.ocakmali.data.entity.toEntity
 import com.ocakmali.data.entity.toGrinder
+import com.ocakmali.data.extensions.exactWord
+import com.ocakmali.data.extensions.startsWith
 import com.ocakmali.domain.model.Grinder
 import com.ocakmali.domain.repository.IGrinderRepository
 import kotlinx.coroutines.withContext
@@ -51,7 +53,10 @@ class GrinderRepository(private val dao: GrinderDao,
     }
 
     override suspend fun search(query: String, limit: Int) = withContext(dispatchers.io) {
-        val formattedQuery = String.format("%s*", query)
-        Result.value { dao.search(formattedQuery, limit).map { it.toGrinder() } }
+        Result.value { dao.search(query.startsWith(), limit).map { it.toGrinder() } }
+    }
+
+    override suspend fun findByName(name: String) = withContext(dispatchers.io) {
+        Result.value { dao.findByName(name.exactWord())?.toGrinder() }
     }
 }

@@ -25,8 +25,8 @@
 package com.ocakmali.domain.repository
 
 import androidx.paging.DataSource
-import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.common.Result
+import com.ocakmali.domain.model.CoffeeMaker
 
 interface ICoffeeMakerRepository : Searchable<CoffeeMaker> {
 
@@ -37,4 +37,6 @@ interface ICoffeeMakerRepository : Searchable<CoffeeMaker> {
     suspend fun addCoffeeMakers(coffeeMakers: List<CoffeeMaker>): Result<Exception, Unit>
 
     suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker): Result<Exception, Unit>
+
+    suspend fun findByName(name: String): Result<Exception, CoffeeMaker?>
 }

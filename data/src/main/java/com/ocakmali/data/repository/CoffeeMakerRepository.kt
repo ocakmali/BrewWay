@@ -29,6 +29,8 @@ import com.ocakmali.common.Result
 import com.ocakmali.data.dao.CoffeeMakerDao
 import com.ocakmali.data.entity.toCoffeeMaker
 import com.ocakmali.data.entity.toEntity
+import com.ocakmali.data.extensions.exactWord
+import com.ocakmali.data.extensions.startsWith
 import com.ocakmali.domain.model.CoffeeMaker
 import com.ocakmali.domain.repository.ICoffeeMakerRepository
 import kotlinx.coroutines.withContext
@@ -51,7 +53,10 @@ class CoffeeMakerRepository(private val dao: CoffeeMakerDao,
     }
 
     override suspend fun search(query: String, limit: Int) = withContext(dispatchers.io) {
-        val formattedQuery = String.format("%s*", query)
-        Result.value { dao.search(formattedQuery, limit).map { it.toCoffeeMaker() } }
+        Result.value { dao.search(query.startsWith(), limit).map { it.toCoffeeMaker() } }
+    }
+
+    override suspend fun findByName(name: String) = withContext(dispatchers.io) {
+        Result.value { dao.findByName(name.exactWord())?.toCoffeeMaker() }
     }
 }
