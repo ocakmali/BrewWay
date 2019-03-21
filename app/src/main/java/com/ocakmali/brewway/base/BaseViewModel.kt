@@ -27,19 +27,17 @@ package com.ocakmali.brewway.base
 import androidx.lifecycle.ViewModel
 import com.ocakmali.common.DispatchersProvider
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel(protected val dispatchers: DispatchersProvider) : ViewModel(), CoroutineScope {
 
-    protected val job = Job()
+    protected val job = SupervisorJob()
     override val coroutineContext: CoroutineContext
         get() = dispatchers.ui + job
 
     override fun onCleared() {
-        if (!job.isCancelled) {
-            job.cancel()
-        }
         super.onCleared()
+        job.cancel()
     }
 }
