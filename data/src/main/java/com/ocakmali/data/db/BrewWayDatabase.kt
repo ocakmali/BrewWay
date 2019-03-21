@@ -41,7 +41,7 @@ import com.ocakmali.data.entity.*
             RecipeEntity::class
         ],
         views = [RecipeAndEquipments::class],
-        exportSchema = false,
+        exportSchema = true,
         version = 1)
 abstract class BrewWayDatabase : RoomDatabase() {
 
