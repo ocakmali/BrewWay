@@ -25,8 +25,8 @@
 package com.ocakmali.domain.repository
 
 import androidx.paging.DataSource
-import com.ocakmali.domain.model.Coffee
 import com.ocakmali.common.Result
+import com.ocakmali.domain.model.Coffee
 
 interface ICoffeeRepository : Searchable<Coffee> {
 
@@ -37,4 +37,6 @@ interface ICoffeeRepository : Searchable<Coffee> {
     suspend fun addCoffees(coffees: List<Coffee>): Result<Exception, Unit>
 
     suspend fun deleteCoffee(coffee: Coffee): Result<Exception, Unit>
+
+    suspend fun findByName(name: String): Result<Exception, Coffee?>
 }

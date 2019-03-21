@@ -37,4 +37,6 @@ interface IGrinderRepository : Searchable<Grinder> {
     suspend fun addGrinders(grinders: List<Grinder>): Result<Exception, Unit>
 
     suspend fun deleteGrinder(grinder: Grinder): Result<Exception, Unit>
+
+    suspend fun findByName(name: String): Result<Exception, Grinder?>
 }
