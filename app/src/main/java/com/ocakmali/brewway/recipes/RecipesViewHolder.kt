@@ -43,9 +43,9 @@ class RecipesViewHolder(view: View) : BaseViewHolder<RecipeView>(view) {
 
     override fun bind(obj: RecipeView) {
         title.text = obj.title
-        coffeeMaker.text = obj.equipment.coffeeMaker.name
-        grinder.text = obj.equipment.grinder.name
-        coffee.text = obj.equipment.coffee.name
+        coffeeMaker.text = obj.equipment.coffeeMaker?.name ?: ""
+        grinder.text = obj.equipment.grinder?.name ?: ""
+        coffee.text = obj.equipment.coffee?.name ?: ""
         coffeeAmount.text = obj.equipment.coffeeAmount.toString()
         waterAmount.text = obj.equipment.waterAmount.toString()
         waterTemperature.text = obj.equipment.waterTemperature.toString()

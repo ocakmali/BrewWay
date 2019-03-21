@@ -26,11 +26,35 @@ package com.ocakmali.brewway.datamodel
 
 import com.ocakmali.domain.model.Recipe
 
-internal fun RecipeView.toRecipe() = Recipe(title, equipment, createdDate, id)
+internal fun RecipeView.toRecipe() = Recipe(title,
+        Recipe.Equipment(equipment.coffeeMaker?.toCoffeeMaker(),
+                equipment.coffee?.toCoffee(),
+                equipment.grinder?.toGrinder(),
+                equipment.coffeeAmount,
+                equipment.waterAmount,
+                equipment.waterTemperature),
+        createdDate,
+        id)
 
-internal fun Recipe.toView() = RecipeView(title, equipment, createdDate, id)
+internal fun Recipe.toView() = RecipeView(title,
+        RecipeView.Equipment(equipment.coffeeMaker?.toView(),
+                equipment.coffee?.toView(),
+                equipment.grinder?.toView(),
+                equipment.coffeeAmount,
+                equipment.waterAmount,
+                equipment.waterTemperature),
+        createdDate,
+        id)
 
 data class RecipeView(val title: String,
-                      val equipment: Recipe.Equipment,
+                      val equipment: RecipeView.Equipment,
                       val createdDate: Long = System.currentTimeMillis(),
-                      val id: Int = 0)
+                      val id: Int = 0) {
+
+    data class Equipment(val coffeeMaker: CoffeeMakerView?,
+                         val coffee: CoffeeView?,
+                         val grinder: GrinderView?,
+                         val coffeeAmount: Int,
+                         val waterAmount: Int,
+                         val waterTemperature: Int)
+}

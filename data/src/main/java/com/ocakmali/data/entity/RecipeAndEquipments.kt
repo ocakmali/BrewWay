@@ -41,9 +41,9 @@ import com.ocakmali.data.db.RecipeConstants.TABLE_NAME
 import com.ocakmali.domain.model.Recipe
 
 internal fun RecipeAndEquipments.toRecipe() = Recipe(title,
-        Recipe.Equipment(coffeeMaker.toCoffeeMaker(),
-                coffee.toCoffee(),
-                grinder.toGrinder(),
+        Recipe.Equipment(coffeeMaker?.toCoffeeMaker(),
+                coffee?.toCoffee(),
+                grinder?.toGrinder(),
                 coffeeAmount,
                 waterAmount,
                 waterTemp
@@ -56,9 +56,9 @@ internal fun RecipeAndEquipments.toRecipe() = Recipe(title,
      ${GrinderConstants.TABLE_NAME}.*,
       ${CoffeeConstants.TABLE_NAME}.*,
        ${CoffeeMakerConstants.TABLE_NAME}.* FROM $TABLE_NAME
-    INNER JOIN ${GrinderConstants.TABLE_NAME} ON ${GrinderConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_GRINDER_ID}
-    INNER JOIN ${CoffeeConstants.TABLE_NAME} ON ${CoffeeConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_COFFEE_ID}
-    INNER JOIN ${CoffeeMakerConstants.TABLE_NAME} ON ${CoffeeMakerConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_COFFEE_MAKER_ID}
+    LEFT JOIN ${GrinderConstants.TABLE_NAME} ON ${GrinderConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_GRINDER_ID}
+    LEFT JOIN ${CoffeeConstants.TABLE_NAME} ON ${CoffeeConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_COFFEE_ID}
+    LEFT JOIN ${CoffeeMakerConstants.TABLE_NAME} ON ${CoffeeMakerConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_COFFEE_MAKER_ID}
     """)
 data class RecipeAndEquipments(@ColumnInfo(name = COLUMN_TITLE) val title: String,
                                @ColumnInfo(name = COLUMN_COFFEE_AMOUNT) val coffeeAmount: Int,
@@ -66,6 +66,6 @@ data class RecipeAndEquipments(@ColumnInfo(name = COLUMN_TITLE) val title: Strin
                                @ColumnInfo(name = COLUMN_WATER_TEMPERATURE) val waterTemp: Int,
                                @ColumnInfo(name = COLUMN_CREATED_DATE) val createdDate: Long,
                                @ColumnInfo(name = COLUMN_ID) val id: Int,
-                               @Embedded val grinder: GrinderEntity,
-                               @Embedded val coffee: CoffeeEntity,
-                               @Embedded val coffeeMaker: CoffeeMakerEntity)
+                               @Embedded val grinder: GrinderEntity?,
+                               @Embedded val coffee: CoffeeEntity?,
+                               @Embedded val coffeeMaker: CoffeeMakerEntity?)
