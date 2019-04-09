@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_decrement"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:background="@drawable/border_without_right"
+        android:src="@drawable/ic_remove_opaque"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="48dp"
+        android:inputType="number"
+        android:imeOptions="actionDone"
+        android:selectAllOnFocus="true"
+        android:padding="4dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:background="@drawable/border"/>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_increment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:src="@drawable/ic_add_opaque"
+        android:background="@drawable/border_without_left"/>
+</merge>
