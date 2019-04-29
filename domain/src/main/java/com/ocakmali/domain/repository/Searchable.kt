@@ -1,8 +1,8 @@
 package com.ocakmali.domain.repository
 
-import com.ocakmali.common.Result
+import androidx.paging.DataSource
 
 interface Searchable<T> {
 
-    suspend fun search(query: String, limit: Int): Result<Exception, List<T>>
+    fun search(query: String): DataSource.Factory<Int, T>
 }

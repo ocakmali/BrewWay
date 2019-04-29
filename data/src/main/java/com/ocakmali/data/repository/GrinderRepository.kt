@@ -40,6 +40,8 @@ class GrinderRepository(private val dao: GrinderDao,
 
     override fun loadGrinders() = dao.loadGrinders().map { it.toGrinder() }
 
+    override fun search(query: String) = dao.search(query.startsWith()).map { it.toGrinder() }
+
     override suspend fun addGrinder(grinder: Grinder) = withContext(dispatchers.io) {
         Result.value { dao.insert(grinder.toEntity()) }
     }
@@ -50,10 +52,6 @@ class GrinderRepository(private val dao: GrinderDao,
 
     override suspend fun deleteGrinder(grinder: Grinder) = withContext(dispatchers.io) {
         Result.value { dao.delete(grinder.toEntity()) }
-    }
-
-    override suspend fun search(query: String, limit: Int) = withContext(dispatchers.io) {
-        Result.value { dao.search(query.startsWith(), limit).map { it.toGrinder() } }
     }
 
     override suspend fun findByName(name: String) = withContext(dispatchers.io) {

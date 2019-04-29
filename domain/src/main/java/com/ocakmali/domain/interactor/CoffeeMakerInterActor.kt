@@ -31,7 +31,7 @@ class CoffeeMakerInterActor(private val repository: ICoffeeMakerRepository) {
 
     fun loadCoffeeMakers() = repository.loadCoffeeMakers()
 
-    suspend fun searchCoffeeMakers(query: String, limit: Int) = repository.search(query, limit)
+    fun searchCoffeeMakers(query: String) = repository.search(query)
 
     suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker) = repository.addCoffeeMaker(coffeeMaker)
 

@@ -42,9 +42,9 @@ abstract class CoffeeMakerDao : BaseDao<CoffeeMakerEntity> {
 
     @Query("""SELECT * FROM $TABLE_NAME
         JOIN $FTS_TABLE_NAME ON $COLUMN_ID = $FTS_DOC_ID
-            WHERE $FTS_TABLE_NAME MATCH :query LIMIT :limit
+            WHERE $FTS_TABLE_NAME MATCH :query
             """)
-    abstract fun search(query: String, limit: Int): List<CoffeeMakerEntity>
+    abstract fun search(query: String): DataSource.Factory<Int, CoffeeMakerEntity>
 
     @Query("""SELECT * FROM $TABLE_NAME
         JOIN $FTS_TABLE_NAME ON $COLUMN_ID = $FTS_DOC_ID

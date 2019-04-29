@@ -31,7 +31,7 @@ class GrinderInterActor(private val repository: IGrinderRepository) {
 
     fun loadGrinders() = repository.loadGrinders()
 
-    suspend fun searchGrinders(query: String, limit: Int) = repository.search(query, limit)
+    fun searchGrinders(query: String) = repository.search(query)
 
     suspend fun findByName(name: String) = repository.findByName(name)
 

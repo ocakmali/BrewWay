@@ -40,6 +40,8 @@ class CoffeeMakerRepository(private val dao: CoffeeMakerDao,
 
     override fun loadCoffeeMakers() = dao.loadCoffeeMakers().map { it.toCoffeeMaker() }
 
+    override fun search(query: String) = dao.search(query.startsWith()).map { it.toCoffeeMaker() }
+
     override suspend fun addCoffeeMaker(coffeeMaker: CoffeeMaker) = withContext(dispatchers.io) {
         Result.value { dao.insert(coffeeMaker.toEntity()) }
     }
@@ -50,10 +52,6 @@ class CoffeeMakerRepository(private val dao: CoffeeMakerDao,
 
     override suspend fun deleteCoffeeMaker(coffeeMaker: CoffeeMaker) = withContext(dispatchers.io){
         Result.value { dao.delete(coffeeMaker.toEntity()) }
-    }
-
-    override suspend fun search(query: String, limit: Int) = withContext(dispatchers.io) {
-        Result.value { dao.search(query.startsWith(), limit).map { it.toCoffeeMaker() } }
     }
 
     override suspend fun findByName(name: String) = withContext(dispatchers.io) {
