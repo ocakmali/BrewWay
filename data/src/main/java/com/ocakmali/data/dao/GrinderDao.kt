@@ -42,9 +42,9 @@ abstract class GrinderDao : BaseDao<GrinderEntity> {
 
     @Query("""SELECT * FROM $TABLE_NAME
         JOIN $FTS_TABLE_NAME ON $COLUMN_ID = $FTS_DOC_ID
-            WHERE $FTS_TABLE_NAME MATCH :query LIMIT :limit
+            WHERE $FTS_TABLE_NAME MATCH :query
             """)
-    abstract fun search(query: String, limit: Int): List<GrinderEntity>
+    abstract fun search(query: String): DataSource.Factory<Int, GrinderEntity>
 
     @Query("""SELECT * FROM $TABLE_NAME
         JOIN $FTS_TABLE_NAME ON $COLUMN_ID = $FTS_DOC_ID
