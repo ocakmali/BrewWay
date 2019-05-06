@@ -25,21 +25,20 @@
 package com.ocakmali.brewway
 
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_brew_way.*
-import kotlinx.android.synthetic.main.layout_main_container.*
 
 class BrewWayActivity : AppCompatActivity() {
 
     private val navController:NavController  by lazy { findNavController(R.id.nav_host) }
 
-    private var navigationListener = NavController.OnNavigatedListener { _, destination ->
+    private var navigationListener = NavController.OnDestinationChangedListener { _, destination, _ ->
         when(destination.id) {
             R.id.dest_recipes,
             R.id.dest_timer,
@@ -50,12 +49,16 @@ class BrewWayActivity : AppCompatActivity() {
 
     private fun bottomNavVisible(visibility: Boolean) {
         if(visibility) {
-            if (bottom_nav?.visibility != View.VISIBLE) {
-                bottom_nav?.visibility = View.VISIBLE
+            if (bottom_nav.visibility != View.VISIBLE) {
+                TransitionManager.beginDelayedTransition(main_container)
+                bottom_nav.visibility = View.VISIBLE
+                app_bar.visibility = View.VISIBLE
             }
         } else {
-            if (bottom_nav?.visibility != View.GONE) {
-                bottom_nav?.visibility = View.GONE
+            if (bottom_nav.visibility != View.GONE) {
+                TransitionManager.beginDelayedTransition(main_container)
+                bottom_nav.visibility = View.GONE
+                app_bar.visibility = View.GONE
             }
         }
     }
@@ -63,17 +66,14 @@ class BrewWayActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brew_way)
-        
         setupToolbar(navController)
         setupBottomNav(navController)
-        nav_view?.setupWithNavController(navController)
     }
 
     private fun setupToolbar(navController: NavController) {
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.dest_recipes,
                 R.id.dest_timer,
-                R.id.dest_equipment),
-                drawer_layout
+                R.id.dest_equipment)
         )
         toolbar.setupWithNavController(navController,appBarConfiguration)
     }
@@ -84,15 +84,15 @@ class BrewWayActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        navController.addOnNavigatedListener(navigationListener)
+        navController.addOnDestinationChangedListener(navigationListener)
     }
 
     override fun onStop() {
         super.onStop()
-        navController.removeOnNavigatedListener(navigationListener)
+        navController.removeOnDestinationChangedListener(navigationListener)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(drawer_layout)
+        return navController.navigateUp()
     }
 }
