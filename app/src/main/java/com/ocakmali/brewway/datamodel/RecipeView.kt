@@ -46,7 +46,7 @@ internal fun Recipe.toView() = RecipeView(title,
         createdDate,
         id)
 
-data class RecipeView(val title: String,
+data class RecipeView(val title: String?,
                       val equipment: RecipeView.Equipment,
                       val createdDate: Long = System.currentTimeMillis(),
                       val id: Int = 0) {
@@ -54,7 +54,23 @@ data class RecipeView(val title: String,
     data class Equipment(val coffeeMaker: CoffeeMakerView?,
                          val coffee: CoffeeView?,
                          val grinder: GrinderView?,
-                         val coffeeAmount: Int,
-                         val waterAmount: Int,
-                         val waterTemperature: Int)
+                         val coffeeAmount: Int?,
+                         val waterAmount: Int?,
+                         val waterTemperature: Int?)
+
+    companion object {
+        fun emptyRecipe(): Recipe{
+            return Recipe(title = null,
+                    equipment = Recipe.Equipment(null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                    ),
+                    createdDate = System.currentTimeMillis(),
+                    id = 0
+            )
+        }
+    }
 }

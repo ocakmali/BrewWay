@@ -69,13 +69,13 @@ internal fun Recipe.toEntity() = RecipeEntity(title,
                     childColumns = arrayOf(RecipeConstants.COLUMN_GRINDER_ID),
                     onDelete = ForeignKey.CASCADE)
         ])
-data class RecipeEntity(@ColumnInfo(name = COLUMN_TITLE) val title: String,
+data class RecipeEntity(@ColumnInfo(name = COLUMN_TITLE) val title: String?,
                         @ColumnInfo(name = COLUMN_COFFEE_MAKER_ID) val coffeeMakerId: Int?,
                         @ColumnInfo(name = COLUMN_COFFEE_ID) val coffeeId: Int?,
                         @ColumnInfo(name = COLUMN_GRINDER_ID) val grinderId: Int?,
-                        @ColumnInfo(name = COLUMN_COFFEE_AMOUNT) val coffeeAmount: Int,
-                        @ColumnInfo(name = COLUMN_WATER_AMOUNT) val waterAmount: Int,
-                        @ColumnInfo(name = COLUMN_WATER_TEMPERATURE) val waterTemperature: Int,
+                        @ColumnInfo(name = COLUMN_COFFEE_AMOUNT) val coffeeAmount: Int?,
+                        @ColumnInfo(name = COLUMN_WATER_AMOUNT) val waterAmount: Int?,
+                        @ColumnInfo(name = COLUMN_WATER_TEMPERATURE) val waterTemperature: Int?,
                         @ColumnInfo(name = COLUMN_CREATED_DATE) val createdDate: Long,
                         @PrimaryKey(autoGenerate = true)
                         @ColumnInfo(name = COLUMN_ID) val id: Int)

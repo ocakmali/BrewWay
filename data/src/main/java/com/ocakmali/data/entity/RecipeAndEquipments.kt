@@ -60,10 +60,10 @@ internal fun RecipeAndEquipments.toRecipe() = Recipe(title,
     LEFT JOIN ${CoffeeConstants.TABLE_NAME} ON ${CoffeeConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_COFFEE_ID}
     LEFT JOIN ${CoffeeMakerConstants.TABLE_NAME} ON ${CoffeeMakerConstants.COLUMN_ID} = ${RecipeConstants.COLUMN_COFFEE_MAKER_ID}
     """)
-data class RecipeAndEquipments(@ColumnInfo(name = COLUMN_TITLE) val title: String,
-                               @ColumnInfo(name = COLUMN_COFFEE_AMOUNT) val coffeeAmount: Int,
-                               @ColumnInfo(name = COLUMN_WATER_AMOUNT) val waterAmount: Int,
-                               @ColumnInfo(name = COLUMN_WATER_TEMPERATURE) val waterTemp: Int,
+data class RecipeAndEquipments(@ColumnInfo(name = COLUMN_TITLE) val title: String?,
+                               @ColumnInfo(name = COLUMN_COFFEE_AMOUNT) val coffeeAmount: Int?,
+                               @ColumnInfo(name = COLUMN_WATER_AMOUNT) val waterAmount: Int?,
+                               @ColumnInfo(name = COLUMN_WATER_TEMPERATURE) val waterTemp: Int?,
                                @ColumnInfo(name = COLUMN_CREATED_DATE) val createdDate: Long,
                                @ColumnInfo(name = COLUMN_ID) val id: Int,
                                @Embedded val grinder: GrinderEntity?,
