@@ -27,6 +27,7 @@ package com.ocakmali.domain.repository
 import androidx.paging.DataSource
 import com.ocakmali.domain.model.Recipe
 import com.ocakmali.common.Result
+import com.ocakmali.domain.model.RecipeAndTimestamps
 import com.ocakmali.domain.model.RecipeTimestamp
 
 interface IRecipeRepository {
@@ -34,6 +35,8 @@ interface IRecipeRepository {
     fun loadRecipes(): DataSource.Factory<Int, Recipe>
 
     suspend fun addRecipe(recipe: Recipe): Result<Exception, Unit>
+
+    suspend fun getRecipeAndTimestampsById(recipeId: Int): Result<Exception, RecipeAndTimestamps>
 
     suspend fun addRecipeAndTimestamps(recipe: Recipe, timestamps: List<RecipeTimestamp>): Result<Exception, Unit>
 

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a90d9afbe1be3cfd650a5fc52c0d5f76",
+    "identityHash": "6686baba3f96a0c584c48fff4d776270",
     "entities": [
       {
         "tableName": "coffees",
@@ -239,13 +239,13 @@
       },
       {
         "tableName": "recipes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recipe_title` TEXT NOT NULL, `recipe_coffee_maker_id` INTEGER, `recipe_coffee_id` INTEGER, `recipe_grinder_id` INTEGER, `recipe_coffee_amount` INTEGER NOT NULL, `recipe_water_amount` INTEGER NOT NULL, `recipe_water_temperature` INTEGER NOT NULL, `recipe_created_date` INTEGER NOT NULL, `recipe_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`recipe_coffee_maker_id`) REFERENCES `coffee_makers`(`coffee_maker_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recipe_coffee_id`) REFERENCES `coffees`(`coffee_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recipe_grinder_id`) REFERENCES `grinders`(`grinder_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`recipe_title` TEXT, `recipe_coffee_maker_id` INTEGER, `recipe_coffee_id` INTEGER, `recipe_grinder_id` INTEGER, `recipe_coffee_amount` INTEGER, `recipe_water_amount` INTEGER, `recipe_water_temperature` INTEGER, `recipe_created_date` INTEGER NOT NULL, `recipe_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`recipe_coffee_maker_id`) REFERENCES `coffee_makers`(`coffee_maker_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recipe_coffee_id`) REFERENCES `coffees`(`coffee_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recipe_grinder_id`) REFERENCES `grinders`(`grinder_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "title",
             "columnName": "recipe_title",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "coffeeMakerId",
@@ -269,19 +269,19 @@
             "fieldPath": "coffeeAmount",
             "columnName": "recipe_coffee_amount",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "waterAmount",
             "columnName": "recipe_water_amount",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "waterTemperature",
             "columnName": "recipe_water_temperature",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "createdDate",
@@ -343,12 +343,12 @@
     "views": [
       {
         "viewName": "RecipeAndEquipments",
-        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT recipe_title, recipe_coffee_amount, recipe_water_amount, recipe_water_temperature, recipe_created_date, recipe_id,\n     grinders.*,\n      coffees.*,\n       coffee_makers.* FROM recipes\n    INNER JOIN grinders ON grinder_id = recipe_grinder_id\n    OR (grinder_id IS NULL AND recipe_grinder_id  IS NULL)\n    INNER JOIN coffees ON coffee_id = recipe_coffee_id\n    OR (coffee_id IS NULL AND recipe_coffee_id  IS NULL)\n    INNER JOIN coffee_makers ON coffee_maker_id = recipe_coffee_maker_id\n    OR (coffee_maker_id IS NULL AND recipe_coffee_maker_id  IS NULL)"
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT recipe_title, recipe_coffee_amount, recipe_water_amount, recipe_water_temperature, recipe_created_date, recipe_id,\n     grinders.*,\n      coffees.*,\n       coffee_makers.* FROM recipes\n    LEFT JOIN grinders ON grinder_id = recipe_grinder_id\n    LEFT JOIN coffees ON coffee_id = recipe_coffee_id\n    LEFT JOIN coffee_makers ON coffee_maker_id = recipe_coffee_maker_id"
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a90d9afbe1be3cfd650a5fc52c0d5f76\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6686baba3f96a0c584c48fff4d776270\")"
     ]
   }
 }
