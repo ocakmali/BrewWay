@@ -7,7 +7,7 @@ abstract class BasePagedListAdapter<T>(diffUtil: DiffUtil.ItemCallback<T>)
     : PagedListAdapter<T, BaseViewHolder<T>>(diffUtil) {
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
-        val obj = getItem(position)
-        obj?.let { holder.bind(it) }
+        val obj = getItem(position) ?: return
+        holder.bind(obj)
     }
 }
