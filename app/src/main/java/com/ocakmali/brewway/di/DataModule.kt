@@ -52,6 +52,6 @@ val dataModule = module {
     single<ICoffeeRepository> { CoffeeRepository(get(), get()) }
     single<ICoffeeMakerRepository> { CoffeeMakerRepository(get(), get()) }
     single<IGrinderRepository> { GrinderRepository(get(), get()) }
-    single<IRecipeRepository> { RecipeRepository(get(), get(), get()) }
+    single<IRecipeRepository> { RecipeRepository(get(), get(), get(), get()) }
     single<IRecipeTimestampRepository> { RecipeTimestampRepository(get(), get()) }
 }
