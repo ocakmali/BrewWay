@@ -30,6 +30,13 @@
         <item name="android:minHeight">48dp</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
     </style>
+    
+    <style name="RecipeTextView">
+        <item name="android:padding">@dimen/margin_micro</item>
+        <item name="android:drawablePadding">@dimen/margin_small</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
     <style name="Theme.Alert.Dialog" parent ="@style/Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="android:textAllCaps">false</item>

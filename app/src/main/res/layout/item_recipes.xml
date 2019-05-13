@@ -28,49 +28,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_micro">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:minHeight="48dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/coffee_maker"
+        style="@style/RecipeTextView"
         tools:text="Title"/>
 
     <TextView
         android:id="@+id/coffee_maker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:drawableStart="@drawable/ic_coffee_maker"
+        app:layout_constraintBottom_toTopOf="@+id/grinder"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
+        style="@style/RecipeTextView"
         tools:text="CoffeeMaker"/>
 
     <TextView
         android:id="@+id/grinder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:drawableStart="@drawable/ic_coffee_grinder"
+        app:layout_constraintTop_toBottomOf="@+id/coffee_maker"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coffee_maker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/barrier_top_coffee"
+        style="@style/RecipeTextView"
         tools:text="Grinder"/>
 
     <TextView
         android:id="@+id/coffee"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintEnd_toStartOf="@+id/coffee_amount"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
+        android:drawableStart="@drawable/ic_coffee_beans"
         app:layout_constraintTop_toBottomOf="@id/grinder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/coffee_amount"
+        app:layout_constraintBottom_toTopOf="@+id/barrier_top_water"
+        style="@style/RecipeTextView"
         tools:text="Coffee"/>
 
 
@@ -78,36 +84,54 @@
         android:id="@+id/coffee_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:padding="4dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintBaseline_toBaselineOf="@id/coffee"
-        app:layout_constraintBottom_toBottomOf="@+id/coffee"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grinder"
         app:layout_constraintStart_toEndOf="@+id/coffee"
-        app:layout_constraintTop_toTopOf="@id/coffee"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/barrier_top_water"
+        style="@style/RecipeTextView"
         tools:text="24g"/>
 
     <TextView
         android:id="@+id/water_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/water_temperature"
+        android:drawableStart="@drawable/ic_water"
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom_coffee"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coffee"
-        tools:text="300g"/>
+        app:layout_constraintEnd_toStartOf="@+id/water_temperature"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/RecipeTextView"
+        tools:text="250"/>
 
     <TextView
         android:id="@+id/water_temperature"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/water_amount"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom_coffee"
         app:layout_constraintStart_toEndOf="@+id/water_amount"
-        tools:text="95C"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/RecipeTextView"
+        tools:text="95"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_top_coffee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="coffee,coffee_amount"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_bottom_coffee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="coffee,coffee_amount"/>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_top_water"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="water_amount,water_temperature"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
