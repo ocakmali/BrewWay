@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BrewWay</string>
     <string name="recipes">Recipes</string>
+    <string name="recipe">Recipe</string>
     <string name="timer">Timer</string>
     <string name="equipments">Equipments</string>
     <string name="coffee">Coffee</string>
@@ -9,9 +10,40 @@
     <string name="coffee_maker">Coffee Maker</string>
     <string name="grinder">Grinder</string>
     <string name="grinders">Grinders</string>
-
     <string name="empty_coffee_exception">Can not add an empty coffee</string>
     <string name="empty_coffee_maker_exception">Can not add an empty coffee maker</string>
     <string name="empty_grinder_exception">Can not add an empty grinder</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="water_amount">Water Amount</string>
+    <string name="water_temperature">Water Temperature</string>
+    <string name="add_new_timestamp">Add new timestamp</string>
+    <string name="no_such_item_exception">Please write a correct item or leave it empty</string>
+    <string name="title">Title</string>
+    <string name="coffee_amount">Coffee Amount:</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="set_coffee_amount">Set Coffee Amount</string>
+    <string name="amt">Amt.</string>
+    <string name="set_water_temperature">Set Water Temperature</string>
+    <string name="set_water_amount">Set Water Amount</string>
+    <string name="temp">Temp.</string>
+    <string name="timestamp_note">Timestamp Note</string>
+    <string name="add">Add</string>
+    <string name="add_timestamp">Add Timestamp</string>
+    <string name="update_timestamp">Update Timestamp</string>
+    <string name="timestamps_size_exceed">Timestamp max size exceed</string>
+    <string name="timestamp_formatted">At %1$s %2$s</string>
+    <string name="exit_add_edit_recipe">Are you sure you want to exit?</string>
+    <string name="remove">Delete</string>
+    <string name="continue_updating">Continue</string>
+    <string name="search_grinder">Search Grinder</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="hint_search_grinder">Search Grinder</string>
+    <string name="hint_search_coffee_maker">Search Coffee Maker</string>
+    <string name="hint_search_coffee">Search Coffee</string>
+    <string name="coffee_not_specified">Coffee not specified</string>
+    <string name="amount_not_specified">Amt. not specified</string>
+    <string name="temperature_not_specified">Temp. not specified</string>
 </resources>

@@ -33,15 +33,107 @@
         android:id="@+id/dest_recipes"
         android:name="com.ocakmali.brewway.recipes.RecipesFragment"
         android:label="@string/recipes"
-        tools:layout="@layout/fragment_recipes"/>
+        tools:layout="@layout/fragment_recipes">
+        <action
+            android:id="@+id/action_add_edit_recipe"
+            app:destination="@id/dest_add_edit_recipe"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+        </action>
+    </fragment>
+
     <fragment
         android:id="@+id/dest_timer"
         android:name="com.ocakmali.brewway.timer.TimerFragment"
         android:label="@string/timer"
         tools:layout="@layout/fragment_timer"/>
+
     <fragment
         android:id="@+id/dest_equipment"
         android:name="com.ocakmali.brewway.equipments.EquipmentsFragment"
         android:label="@string/equipments"
         tools:layout="@layout/fragment_equipments"/>
+
+    <dialog
+        android:id="@+id/dest_search_coffee"
+        android:name="com.ocakmali.brewway.addeditrecipe.coffee.SearchCoffeeDialogFragment"
+        tools:layout="@layout/fragment_search_equipment"/>
+
+    <dialog
+        android:id="@+id/dest_search_coffee_maker"
+        android:name="com.ocakmali.brewway.addeditrecipe.coffeemaker.SearchCoffeeMakerDialogFragment"
+        tools:layout="@layout/fragment_search_equipment"/>
+
+    <dialog
+        android:id="@+id/dest_search_grinder"
+        android:name="com.ocakmali.brewway.addeditrecipe.grinder.SearchGrinderDialogFragment"
+        tools:layout="@layout/fragment_search_equipment"/>
+
+    <dialog
+        android:id="@+id/dest_water_temperature_dialog"
+        android:name="com.ocakmali.brewway.addeditrecipe.WaterTemperatureDialogFragment"
+        tools:layout="@layout/dialog_number_picker"/>
+
+    <dialog
+        android:id="@+id/dest_water_amount_dialog"
+        android:name="com.ocakmali.brewway.addeditrecipe.WaterAmountDialogFragment"
+        tools:layout="@layout/dialog_number_picker"/>
+
+    <dialog
+        android:id="@+id/dest_coffee_amount_dialog"
+        android:name="com.ocakmali.brewway.addeditrecipe.CoffeeAmountDialogFragment"
+        tools:layout="@layout/dialog_number_picker"/>
+
+    <dialog
+        android:id="@+id/dest_exit_dialog"
+        android:name="com.ocakmali.brewway.addeditrecipe.ExitDialogFragment"/>
+
+    <dialog
+        android:id="@+id/dest_timestamp_dialog"
+        android:name="com.ocakmali.brewway.addeditrecipe.TimestampDialogFragment"
+        tools:layout="@layout/dialog_timestamp">
+        <argument
+            android:name="timestamp"
+            app:nullable="true"
+            app:argType="com.ocakmali.brewway.datamodel.TimestampView"
+            android:defaultValue="@null"/>
+    </dialog>
+
+    <fragment
+        android:id="@+id/dest_add_edit_recipe"
+        android:name="com.ocakmali.brewway.addeditrecipe.AddEditRecipeFragment"
+        tools:layout="@layout/fragment_add_edit_recipe">
+        <argument
+            android:name="recipeId"
+            app:argType="integer"
+            android:defaultValue="0"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_to_search_grinder"
+            app:destination="@id/dest_search_grinder"/>
+        <action
+            android:id="@+id/action_to_search_coffee_maker"
+            app:destination="@id/dest_search_coffee_maker"/>
+        <action
+            android:id="@+id/action_to_search_coffee"
+            app:destination="@id/dest_search_coffee"/>
+        <action
+            android:id="@+id/action_to_timestamp_dialog"
+            app:destination="@id/dest_timestamp_dialog"/>
+        <action
+            android:id="@+id/action_to_water_temperature_dialog"
+            app:destination="@id/dest_water_temperature_dialog"/>
+        <action
+            android:id="@+id/action_to_water_amount_dialog"
+            app:destination="@id/dest_water_amount_dialog"/>
+        <action
+            android:id="@+id/action_to_coffee_amount_dialog"
+            app:destination="@id/dest_coffee_amount_dialog"/>
+        <action
+            android:id="@+id/action_to_exit_dialog"
+            app:destination="@id/dest_exit_dialog"/>
+    </fragment>
+
 </navigation>

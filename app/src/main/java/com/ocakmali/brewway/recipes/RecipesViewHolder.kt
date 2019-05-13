@@ -42,7 +42,11 @@ class RecipesViewHolder(view: View) : BaseViewHolder<RecipeView>(view) {
 
 
     override fun bind(obj: RecipeView) {
-        titleTextView.text = obj.title ?: "${itemView.context.getString(R.string.recipe)}#${obj.id}"
+        titleTextView.text = if (obj.title.isNullOrBlank()) {
+            "${itemView.context.getString(R.string.recipe)}#${obj.id}"
+        } else {
+            obj.title
+        }
         with(obj.equipment) {
             coffeeMakerTextView.setTextAndVisibility(coffeeMaker?.name)
             grinderTextView.setTextAndVisibility(grinder?.name)
