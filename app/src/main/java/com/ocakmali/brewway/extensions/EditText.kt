@@ -24,9 +24,12 @@
 
 package com.ocakmali.brewway.extensions
 
+import android.text.Editable
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
+import com.ocakmali.brewway.view.widget.LifecycleTextWatcher
 
 fun EditText.setOnActionDoneClickListener(action: (TextView) -> Unit) {
     setOnEditorActionListener { view, actionId, _ ->
@@ -38,4 +41,11 @@ fun EditText.setOnActionDoneClickListener(action: (TextView) -> Unit) {
             else -> false
         }
     }
+}
+
+fun EditText.addLifecycleTextWatcher(lifecycle: Lifecycle, action: (Editable) -> Unit) {
+    val watcher = LifecycleTextWatcher(this) {
+        action.invoke(it)
+    }
+    watcher.registerLifecycle(lifecycle)
 }
