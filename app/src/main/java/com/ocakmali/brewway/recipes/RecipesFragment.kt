@@ -54,7 +54,7 @@ class RecipesFragment : BaseFragment() {
         })
 
         fab_new_recipe.setOnClickListener {
-            findNavController().navigate(R.id.action_add_edit_recipe)
+           findNavController().navigate(RecipesFragmentDirections.actionAddEditRecipe())
         }
     }
 }
