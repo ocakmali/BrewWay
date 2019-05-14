@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
+
 
 android {
     compileSdkVersion build_versions.target_sdk
@@ -55,4 +58,7 @@ dependencies {
     implementation deps.navigation.ui
 
     implementation deps.paging
+
+    implementation deps.firebase.core
+    implementation deps.firebase.crashlytics
 }
