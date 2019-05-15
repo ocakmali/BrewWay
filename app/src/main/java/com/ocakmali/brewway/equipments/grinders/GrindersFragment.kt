@@ -37,13 +37,9 @@ class GrindersFragment : BaseFragment() {
         snapHelper.attachToRecyclerView(recycler_equipments)
 
         with(viewModel) {
-            grinders.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
-            })
-
-            grinderInsertion.observe(viewLifecycleOwner, Observer {
-                it.result(::notifyException, ::grinderAddedSuccessfully)
-            })
+            grinders.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+            grinderInserted.observe(viewLifecycleOwner, Observer { grinderAddedSuccessfully() })
+            failure.observe(viewLifecycleOwner, Observer(::notifyException))
 
             edit_grinder.setOnActionDoneClickListener {
                 addGrinder(GrinderView(it.text.toString()))

@@ -1,8 +1,8 @@
 package com.ocakmali.brewway.equipments.grinders
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.toLiveData
+import com.crashlytics.android.Crashlytics
 import com.ocakmali.brewway.base.BaseViewModel
 import com.ocakmali.brewway.datamodel.GrinderView
 import com.ocakmali.brewway.datamodel.toGrinder
@@ -16,23 +16,36 @@ import kotlinx.coroutines.launch
 class GrindersViewModel(private val interActor: GrinderInterActor,
                         dispatchers: DispatchersProvider) : BaseViewModel(dispatchers) {
 
-    private val _grinderInsertion = MutableLiveData<Result<Exception, Unit>>()
     val grinders = interActor.loadGrinders()
             .map { it.toView() }
             .toLiveData(20)
-    val grinderInsertion: LiveData<Result<Exception, Unit>>  get() = _grinderInsertion
+    val grinderInserted = MutableLiveData<Unit>()
 
     fun addGrinder(grinderView: GrinderView) = launch {
         if (grinderView.name.isEmpty()) {
-            _grinderInsertion.value = Result.buildError(EmptyItem)
+           postFailure(EmptyItem)
         } else {
             interActor.addGrinder(grinderView.toGrinder()).also {
-                _grinderInsertion.value = it
+                it.result(::grinderInsertionFailed, ::grinderInsertionSucceed)
             }
         }
     }
 
+    private fun grinderInsertionFailed(e: Exception) {
+        Crashlytics.logException(e)
+        postFailure(e)
+    }
+
+    private fun grinderInsertionSucceed(u: Unit) {
+        grinderInserted.value = u
+    }
+
     fun deleteGrinder(grinderView: GrinderView) = launch {
-        interActor.deleteGrinder(grinderView.toGrinder())
+        interActor.deleteGrinder(grinderView.toGrinder()).also {result ->
+            if (result is Result.Error) {
+                Crashlytics.logException(result.error)
+                postFailure(result.error)
+            }
+        }
     }
 }
