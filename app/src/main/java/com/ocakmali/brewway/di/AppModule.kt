@@ -24,10 +24,15 @@
 
 package com.ocakmali.brewway.di
 
+import com.ocakmali.brewway.addeditrecipe.AddEditRecipeViewModel
+import com.ocakmali.brewway.addeditrecipe.coffee.SearchCoffeeViewModel
+import com.ocakmali.brewway.addeditrecipe.coffeemaker.SearchCoffeeMakerViewModel
+import com.ocakmali.brewway.addeditrecipe.grinder.SearchGrinderViewModel
 import com.ocakmali.brewway.equipments.coffeemakers.CoffeeMakersViewModel
 import com.ocakmali.brewway.equipments.coffees.CoffeesViewModel
 import com.ocakmali.brewway.equipments.grinders.GrindersViewModel
 import com.ocakmali.brewway.recipes.RecipesViewModel
+import org.koin.androidx.viewmodel.experimental.builder.viewModel
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
@@ -38,4 +43,8 @@ val appModule = module {
     viewModel { CoffeeMakersViewModel(get(), get()) }
     viewModel { GrindersViewModel(get(), get()) }
     viewModel { RecipesViewModel(get(), get()) }
+    viewModel<AddEditRecipeViewModel>()
+    viewModel<SearchCoffeeViewModel>()
+    viewModel<SearchCoffeeMakerViewModel>()
+    viewModel<SearchGrinderViewModel>()
 }

@@ -25,13 +25,16 @@
 package com.ocakmali.brewway.base
 
 import androidx.lifecycle.ViewModel
+import com.ocakmali.brewway.SingleLiveEvent
 import com.ocakmali.common.DispatchersProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModel(protected val dispatchers: DispatchersProvider) : ViewModel(), CoroutineScope {
+abstract class BaseViewModel(protected val dispatchers: DispatchersProvider = DispatchersProvider())
+    : ViewModel(), CoroutineScope {
 
+    val failure = SingleLiveEvent<Exception>()
     protected val job = SupervisorJob()
     override val coroutineContext: CoroutineContext
         get() = dispatchers.ui + job
@@ -39,5 +42,9 @@ abstract class BaseViewModel(protected val dispatchers: DispatchersProvider) : V
     override fun onCleared() {
         super.onCleared()
         job.cancel()
+    }
+
+    protected fun postFailure(exception: Exception) {
+        failure.value = exception
     }
 }

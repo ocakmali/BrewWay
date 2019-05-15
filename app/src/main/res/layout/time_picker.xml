@@ -13,14 +13,14 @@
         android:textAlignment="center"
         android:padding="4dp"
         android:selectAllOnFocus="true"
-        android:backgroundTint="@color/windowBackground"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        android:backgroundTint="@android:color/transparent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         android:text=":"
         tools:ignore="HardcodedText"/>
 
@@ -35,6 +35,6 @@
         android:textAlignment="center"
         android:padding="4dp"
         android:selectAllOnFocus="true"
-        android:backgroundTint="@color/windowBackground"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
+        android:backgroundTint="@android:color/transparent"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 </merge>

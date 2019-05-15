@@ -27,10 +27,13 @@ package com.ocakmali.data.dao
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.ocakmali.data.BaseDao
+import com.ocakmali.data.db.RecipeConstants
 import com.ocakmali.data.db.RecipeConstants.COLUMN_CREATED_DATE
 import com.ocakmali.data.entity.RecipeAndEquipments
+import com.ocakmali.data.entity.RecipeAndTimestampsEntity
 import com.ocakmali.data.entity.RecipeEntity
 
 @Dao
@@ -39,6 +42,9 @@ abstract class RecipeDao : BaseDao<RecipeEntity> {
     @Query(""" SELECT * FROM RecipeAndEquipments ORDER BY $COLUMN_CREATED_DATE DESC""")
     abstract fun loadRecipes(): DataSource.Factory<Int, RecipeAndEquipments>
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     abstract fun addRecipe(recipeEntity: RecipeEntity): Long
+
+    @Query("SELECT * FROM RecipeAndEquipments WHERE ${RecipeConstants.COLUMN_ID} == :recipeId")
+    abstract fun getRecipeAndTimestampsById(recipeId: Int): RecipeAndTimestampsEntity
 }

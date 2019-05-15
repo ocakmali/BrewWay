@@ -28,8 +28,10 @@ import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.common.Result
 import com.ocakmali.data.dao.RecipeDao
 import com.ocakmali.data.dao.RecipeTimestampDao
+import com.ocakmali.data.db.BrewWayDatabase
 import com.ocakmali.data.entity.toEntity
 import com.ocakmali.data.entity.toRecipe
+import com.ocakmali.data.entity.toRecipeAndTimestamp
 import com.ocakmali.domain.model.Recipe
 import com.ocakmali.domain.model.RecipeTimestamp
 import com.ocakmali.domain.repository.IRecipeRepository
@@ -37,6 +39,7 @@ import kotlinx.coroutines.withContext
 
 class RecipeRepository(private val recipeDao: RecipeDao,
                        private val timestampDao: RecipeTimestampDao,
+                       private val db: BrewWayDatabase,
                        private val dispatchers: DispatchersProvider) : IRecipeRepository {
 
     override fun loadRecipes() = recipeDao.loadRecipes().map { it.toRecipe() }
@@ -45,13 +48,16 @@ class RecipeRepository(private val recipeDao: RecipeDao,
         Result.value { recipeDao.insert(recipe.toEntity()) }
     }
 
+    override suspend fun getRecipeAndTimestampsById(recipeId: Int) = withContext(dispatchers.io) {
+        Result.value { recipeDao.getRecipeAndTimestampsById(recipeId).toRecipeAndTimestamp() }
+    }
+
     override suspend fun addRecipeAndTimestamps(recipe: Recipe, timestamps: List<RecipeTimestamp>) = withContext(dispatchers.io) {
-        val result = Result.value { recipeDao.addRecipe(recipe.toEntity()) }
-        return@withContext when(result) {
-            is Result.Error -> Result.buildError(result.error)
-            is Result.Value -> Result.value {
+        Result.value {
+            db.runInTransaction {
+                val recipeId: Long = recipeDao.addRecipe(recipe.toEntity())
                 timestampDao.insert(timestamps.map {
-                    it.copy(recipeId = result.value.toInt()).toEntity()
+                    it.copy(recipeId = recipeId.toInt()).toEntity()
                 })
             }
         }

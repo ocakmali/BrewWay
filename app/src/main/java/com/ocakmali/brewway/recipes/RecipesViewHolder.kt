@@ -32,22 +32,67 @@ import com.ocakmali.brewway.datamodel.RecipeView
 
 class RecipesViewHolder(view: View) : BaseViewHolder<RecipeView>(view) {
 
-    private val title: TextView = view.findViewById(R.id.title)
-    private val coffeeMaker: TextView = view.findViewById(R.id.coffee_maker)
-    private val grinder: TextView = view.findViewById(R.id.grinder)
-    private val coffee: TextView = view.findViewById(R.id.coffee)
-    private val coffeeAmount: TextView = view.findViewById(R.id.coffee_amount)
-    private val waterAmount: TextView = view.findViewById(R.id.water_amount)
-    private val waterTemperature: TextView = view.findViewById(R.id.water_temperature)
+    private val titleTextView: TextView = view.findViewById(R.id.title)
+    private val coffeeMakerTextView: TextView = view.findViewById(R.id.coffee_maker)
+    private val grinderTextView: TextView = view.findViewById(R.id.grinder)
+    private val coffeeTextView: TextView = view.findViewById(R.id.coffee)
+    private val coffeeAmountTextView: TextView = view.findViewById(R.id.coffee_amount)
+    private val waterAmountTextView: TextView = view.findViewById(R.id.water_amount)
+    private val waterTemperatureTextView: TextView = view.findViewById(R.id.water_temperature)
 
 
     override fun bind(obj: RecipeView) {
-        title.text = obj.title
-        coffeeMaker.text = obj.equipment.coffeeMaker?.name ?: ""
-        grinder.text = obj.equipment.grinder?.name ?: ""
-        coffee.text = obj.equipment.coffee?.name ?: ""
-        coffeeAmount.text = obj.equipment.coffeeAmount.toString()
-        waterAmount.text = obj.equipment.waterAmount.toString()
-        waterTemperature.text = obj.equipment.waterTemperature.toString()
+        titleTextView.text = if (obj.title.isNullOrBlank()) {
+            "${itemView.context.getString(R.string.recipe)}#${obj.id}"
+        } else {
+            obj.title
+        }
+        with(obj.equipment) {
+            coffeeMakerTextView.setTextAndVisibility(coffeeMaker?.name)
+            grinderTextView.setTextAndVisibility(grinder?.name)
+            setCoffeeText(this)
+            setWaterText(this)
+        }
+    }
+
+    private fun setWaterText(equipment: RecipeView.Equipment) {
+        with(equipment) {
+            if (waterAmount == null && waterTemperature == null) {
+                waterAmountTextView.visibility = View.GONE
+                waterTemperatureTextView.visibility = View.GONE
+            } else {
+                waterAmountTextView.visibility = View.VISIBLE
+                waterTemperatureTextView.visibility = View.VISIBLE
+                waterAmountTextView.text = waterAmount?.toString()
+                        ?: itemView.context.getText(R.string.amount_not_specified)
+                waterTemperatureTextView.text = waterTemperature?.toString()
+                        ?: itemView.context.getText(R.string.temperature_not_specified)
+            }
+        }
+    }
+
+    private fun setCoffeeText(equipment: RecipeView.Equipment) {
+        with(equipment) {
+            if (coffee?.name.isNullOrBlank() && coffeeAmount?.toString().isNullOrBlank()) {
+                coffeeTextView.visibility = View.GONE
+                coffeeAmountTextView.visibility = View.GONE
+            } else {
+                coffeeTextView.visibility = View.VISIBLE
+                coffeeAmountTextView.visibility = View.VISIBLE
+                coffeeTextView.text = coffee?.name
+                        ?: itemView.context.getText(R.string.coffee_not_specified)
+                coffeeAmountTextView.text = coffeeAmount?.toString()
+                        ?: itemView.context.getText(R.string.amount_not_specified)
+            }
+        }
+    }
+
+    private fun TextView.setTextAndVisibility(text: String?) {
+        if (text.isNullOrBlank()) {
+            visibility = View.GONE
+            return
+        }
+        visibility = View.VISIBLE
+        setText(text)
     }
 }

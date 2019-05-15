@@ -39,5 +39,7 @@ class RecipeInterActor(private val repository: IRecipeRepository) {
     suspend fun addRecipeAndTimestamps(recipe: Recipe, timestamps: List<RecipeTimestamp>) =
             repository.addRecipeAndTimestamps(recipe, timestamps)
 
+    suspend fun getRecipeAndTimestampsById(recipeId: Int) = repository.getRecipeAndTimestampsById(recipeId)
+
     suspend fun deleteRecipe(recipe: Recipe) = repository.deleteRecipe(recipe)
 }

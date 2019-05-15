@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/btn_save"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_save"
+            android:src="@drawable/ic_close"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="64dp"
+            android:minHeight="48dp"
+            android:textAllCaps="false"
+            android:text="@string/save"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/margin_small"
+            style="@style/Widget.MaterialComponents.Button"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@id/et_title"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:backgroundTint="@color/windowBackground"
+            android:hint="@string/title"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:maxLines="5"
+            android:minHeight="48dp"
+            android:scrollbars="vertical"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_save"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/et_title"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_coffee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/coffee"
+            style="@style/AddEditRecipeTextView"
+            android:drawableStart="@drawable/ic_coffee_beans"
+            app:layout_constraintEnd_toStartOf="@id/tv_coffee_amount"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_title"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@id/barrier_coffee_text"
+            app:layout_constraintStart_toEndOf="@id/tv_coffee"
+            app:layout_constraintEnd_toStartOf="@id/tv_coffee_amount"
+            app:layout_constraintTop_toBottomOf="@id/et_title"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_coffee_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/amt"
+            style="@style/AddEditRecipeTextView"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_coffee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/tv_coffee"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/barrier_coffee_text"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_coffee_maker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/coffee_maker"
+            style="@style/AddEditRecipeTextView"
+            android:drawableStart="@drawable/ic_coffee_maker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier_coffee_text"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/tv_coffee_maker"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_grinder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/grinder"
+            style="@style/AddEditRecipeTextView"
+            android:drawableStart="@drawable/ic_coffee_grinder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_coffee_maker"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/tv_grinder"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_water_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/amt"
+            style="@style/AddEditRecipeTextView"
+            android:drawableStart="@drawable/ic_water"
+            app:layout_constraintEnd_toStartOf="@id/tv_water_temp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_grinder"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="@id/barrier_water_text"
+            app:layout_constraintStart_toEndOf="@id/tv_water_amount"
+            app:layout_constraintEnd_toStartOf="@id/tv_water_temp"
+            app:layout_constraintTop_toBottomOf="@id/tv_grinder"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_water_temp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/AddEditRecipeTextView"
+            android:text="@string/temp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_water_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_water_amount"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/barrier_water_text"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_add_edit_timestamp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/barrier_water_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/AddEditRecipeTextView"
+            android:paddingStart="@dimen/margin_large"
+            android:paddingEnd="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@string/add_timestamp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_edit_timestamp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_timestamps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_add_edit_timestamp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_water_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_water_amount,tv_water_temp"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_coffee_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_coffee, tv_coffee_amount"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
+

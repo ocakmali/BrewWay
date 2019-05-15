@@ -24,7 +24,7 @@
 
 package com.ocakmali.domain.model
 
-data class Recipe(val title: String,
+data class Recipe(val title: String?,
                   val equipment: Equipment,
                   val createdDate: Long,
                   val id: Int){
@@ -33,7 +33,7 @@ data class Recipe(val title: String,
     data class Equipment(val coffeeMaker: CoffeeMaker?,
                          val coffee: Coffee?,
                          val grinder: Grinder?,
-                         val coffeeAmount: Int,
-                         val waterAmount: Int,
-                         val waterTemperature: Int)
+                         val coffeeAmount: Int?,
+                         val waterAmount: Int?,
+                         val waterTemperature: Int?)
 }
