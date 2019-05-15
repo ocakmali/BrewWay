@@ -16,6 +16,7 @@ buildscript {
         classpath deps.navigation.safe_args
         classpath deps.google_services
         classpath deps.fabric
+        classpath deps.firebase_perf_plugin
     }
 }
 

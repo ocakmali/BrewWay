@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 
 android {
@@ -61,4 +62,5 @@ dependencies {
 
     implementation deps.firebase.core
     implementation deps.firebase.crashlytics
+    implementation deps.firebase.performance
 }
