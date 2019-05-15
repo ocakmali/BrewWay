@@ -37,13 +37,9 @@ class CoffeesFragment : BaseFragment() {
         snapHelper.attachToRecyclerView(recycler_equipments)
 
         with(viewModel) {
-            coffees.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
-            })
-
-            coffeeInsertion.observe(viewLifecycleOwner, Observer {
-                it.result(::notifyException, ::coffeeAddedSuccessfully)
-            })
+            coffees.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+            coffeeInserted.observe(viewLifecycleOwner, Observer { coffeeAddedSuccessfully() })
+            failure.observe(viewLifecycleOwner, Observer(::notifyException))
 
             edit_coffee.setOnActionDoneClickListener {
                 addCoffee(CoffeeView(it.text.toString()))

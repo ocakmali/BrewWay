@@ -38,13 +38,9 @@ class CoffeeMakersFragment : BaseFragment() {
         snapHelper.attachToRecyclerView(recycler_equipments)
 
         with (viewModel) {
-            coffeeMakers.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
-            })
-
-            coffeeMakerInsertion.observe(viewLifecycleOwner, Observer {
-                it.result(::notifyException, ::coffeeMakerAddedSuccessfully)
-            })
+            coffeeMakers.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+            coffeeMakerInserted.observe(viewLifecycleOwner, Observer { coffeeMakerAddedSuccessfully() })
+            failure.observe(viewLifecycleOwner, Observer(::notifyException))
 
             edit_coffee_maker.setOnActionDoneClickListener {
                 addCoffeeMaker(CoffeeMakerView(it.text.toString()))
