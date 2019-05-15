@@ -16,7 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ocakmali.brewway.R
 import com.ocakmali.brewway.base.BaseFragment
+import com.ocakmali.brewway.datamodel.RecipeView
 import com.ocakmali.brewway.datamodel.TimestampView
+import com.ocakmali.brewway.exceptions.FetchItemException
+import com.ocakmali.brewway.exceptions.SaveItemException
 import com.ocakmali.brewway.extensions.setOnActionDoneClickListener
 import com.ocakmali.brewway.extensions.toast
 import kotlinx.android.synthetic.main.fragment_add_edit_recipe.*
@@ -36,9 +39,7 @@ class AddEditRecipeFragment : BaseFragment() {
 
         requireActivity()
                 .onBackPressedDispatcher
-                .addCallback(viewLifecycleOwner) {
-                    showExitDialog()
-                }
+                .addCallback(viewLifecycleOwner) { showExitDialog() }
 
         initTitleEditText()
         initCoffeeTextView()
@@ -50,59 +51,73 @@ class AddEditRecipeFragment : BaseFragment() {
         initRecyclerView()
         initToolbarButtons()
 
-        viewModel.navigateUp.observe(viewLifecycleOwner, Observer {
-            val inputManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE)
-                    as InputMethodManager
-            val view = requireActivity().currentFocus ?: View(requireActivity())
-            inputManager.hideSoftInputFromWindow(view.windowToken, 0)
-            findNavController().navigateUp()
-        })
+        tv_add_edit_timestamp.setOnClickListener { addTimestamp() }
 
-        tv_add_edit_timestamp.setOnClickListener {
-            if (viewModel.shouldAddTimestamp()) {
-                findNavController()
-                        .navigate(
-                                AddEditRecipeFragmentDirections
-                                        .actionToTimestampDialog()
-                )
-            } else {
-                toast(R.string.timestamps_size_exceed)
-            }
+        with(viewModel) {
+            navigateUp.observe(viewLifecycleOwner, Observer { hideKeyboardAndNavigateUp() })
+            recipe.observe(viewLifecycleOwner, Observer { updateRecipe(it) })
+            failure.observe(viewLifecycleOwner, Observer { showError(it) })
+        }
+    }
+
+    private fun addTimestamp() {
+        if (viewModel.shouldAddTimestamp()) {
+            findNavController()
+                    .navigate(AddEditRecipeFragmentDirections.actionToTimestampDialog())
+        } else {
+            toast(R.string.timestamps_size_exceed)
+        }
+    }
+
+    private fun hideKeyboardAndNavigateUp() {
+        val inputManager = requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE)
+                as InputMethodManager
+        val view = requireActivity().currentFocus ?: View(requireActivity())
+        inputManager.hideSoftInputFromWindow(view.windowToken, 0)
+        findNavController().navigateUp()
+    }
+
+    private fun showError(e: Exception?) {
+        when (e) {
+            is FetchItemException -> toast(R.string.cant_fetch_recipe)
+            is SaveItemException -> toast(R.string.cant_save_recipe)
+        }
+    }
+
+    private fun updateRecipe(recipe: RecipeView?) {
+        if (recipe == null) {
+            return
         }
 
-        viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe ->
-            if (recipe == null) {
-                return@Observer
-            }
-            with(recipe.equipment) {
-                tv_coffee.updateTextAndSetRightDrawableClickListener(
-                        coffee?.name,
-                        R.string.coffee) { viewModel.updateCoffee(null) }
+        with(recipe.equipment) {
+            tv_coffee.updateTextAndSetRightDrawableClickListener(
+                    coffee?.name,
+                    R.string.coffee) { viewModel.updateCoffee(null) }
 
-                tv_coffee_maker.updateTextAndSetRightDrawableClickListener(
-                        coffeeMaker?.name,
-                        R.string.coffee_maker) { viewModel.updateCoffeeMaker(null) }
+            tv_coffee_maker.updateTextAndSetRightDrawableClickListener(
+                    coffeeMaker?.name,
+                    R.string.coffee_maker) { viewModel.updateCoffeeMaker(null) }
 
-                tv_water_temp.updateTextAndSetRightDrawableClickListener(
-                        waterTemperature?.toString(),
-                        R.string.temp) { viewModel.updateWaterTemperature(null) }
+            tv_water_temp.updateTextAndSetRightDrawableClickListener(
+                    waterTemperature?.toString(),
+                    R.string.temp) { viewModel.updateWaterTemperature(null) }
 
-                tv_water_amount.updateTextAndSetRightDrawableClickListener(
-                        waterAmount?.toString(),
-                        R.string.amt) { viewModel.updateWaterAmount(null) }
+            tv_water_amount.updateTextAndSetRightDrawableClickListener(
+                    waterAmount?.toString(),
+                    R.string.amt) { viewModel.updateWaterAmount(null) }
 
-                tv_coffee_amount.updateTextAndSetRightDrawableClickListener(
-                        coffeeAmount?.toString(),
-                        R.string.amt) { viewModel.updateCoffeeAmount(null) }
+            tv_coffee_amount.updateTextAndSetRightDrawableClickListener(
+                    coffeeAmount?.toString(),
+                    R.string.amt) { viewModel.updateCoffeeAmount(null) }
 
-                tv_grinder.updateTextAndSetRightDrawableClickListener(
-                        grinder?.name,
-                        R.string.grinder) { viewModel.updateGrinder(null) }
-            }
-            if (et_title.text?.toString() != recipe.title) {
-                et_title.setText(recipe.title)
-            }
-        })
+            tv_grinder.updateTextAndSetRightDrawableClickListener(
+                    grinder?.name,
+                    R.string.grinder) { viewModel.updateGrinder(null) }
+        }
+
+        if (et_title.text?.toString() != recipe.title) {
+            et_title.setText(recipe.title)
+        }
     }
 
     private fun initTitleEditText() {
@@ -112,13 +127,9 @@ class AddEditRecipeFragment : BaseFragment() {
     }
 
     private fun initToolbarButtons() {
-        btn_exit.setOnClickListener {
-            showExitDialog()
-        }
+        btn_exit.setOnClickListener { showExitDialog() }
 
-        btn_save.setOnClickListener {
-            viewModel.saveRecipe()
-        }
+        btn_save.setOnClickListener { viewModel.saveRecipe() }
     }
 
     private fun showExitDialog() {

@@ -46,5 +46,7 @@
     <string name="coffee_not_specified">Coffee not specified</string>
     <string name="amount_not_specified">Amt. not specified</string>
     <string name="temperature_not_specified">Temp. not specified</string>
+    <string name="cant_fetch_recipe">Couldn\'t fetch recipe</string>
+    <string name="cant_save_recipe">Couldn\'t save recipe</string>
 </resources>
 
