@@ -1,11 +1,14 @@
 package com.ocakmali.brewway.addeditrecipe
 
 import androidx.lifecycle.MutableLiveData
+import com.crashlytics.android.Crashlytics
 import com.ocakmali.brewway.SingleLiveEvent
 import com.ocakmali.brewway.base.BaseViewModel
 import com.ocakmali.brewway.datamodel.*
-import com.ocakmali.common.Result
+import com.ocakmali.brewway.exceptions.FetchItemException
+import com.ocakmali.brewway.exceptions.SaveItemException
 import com.ocakmali.domain.interactor.RecipeInterActor
+import com.ocakmali.domain.model.RecipeAndTimestamps
 import kotlinx.coroutines.launch
 
 class AddEditRecipeViewModel(private val recipeInterActor: RecipeInterActor) : BaseViewModel() {
@@ -18,7 +21,7 @@ class AddEditRecipeViewModel(private val recipeInterActor: RecipeInterActor) : B
                 ?: timestamps.value.isNullOrEmpty().not()
     private val isRecipeUpdated: Boolean get() {
         with(recipe.value) {
-            if (this?.title == null && this?.equipment?.coffee == null
+            if (this?.title.isNullOrEmpty() && this?.equipment?.coffee == null
                     && this?.equipment?.coffeeMaker == null && this?.equipment?.grinder == null
                     && this?.equipment?.coffeeAmount == null && this?.equipment?.waterAmount == null
                     && this?.equipment?.waterTemperature == null && this?.id == 0
@@ -43,16 +46,19 @@ class AddEditRecipeViewModel(private val recipeInterActor: RecipeInterActor) : B
             return@launch
         }
 
-        val result = recipeInterActor.getRecipeAndTimestampsById(recipeId)
-        when (result) {
-            is Result.Value -> {
-                val recipeAndTimestampsView = result.value.toView()
-                updateValues(recipeAndTimestampsView)
-                isDataInvalidated = false
-            }
-            else -> {
-            }
-        }
+        recipeInterActor.getRecipeAndTimestampsById(recipeId)
+                .result(::fetchRecipeFailed, ::fetchRecipeSucceed)
+    }
+
+    private fun fetchRecipeFailed(e: Exception) {
+        Crashlytics.logException(e)
+        postFailure(FetchItemException)
+    }
+
+    private fun fetchRecipeSucceed(recipeAndTimestamps: RecipeAndTimestamps) {
+        val recipeAndTimestampsView = recipeAndTimestamps.toView()
+        updateValues(recipeAndTimestampsView)
+        isDataInvalidated = false
     }
 
     private fun updateValues(recipeAndTimestamps: RecipeAndTimestampsView?) {
@@ -176,17 +182,21 @@ class AddEditRecipeViewModel(private val recipeInterActor: RecipeInterActor) : B
         if (isRecipeUpdated || isTimestampsUpdated) {
             if (timestampList.isNullOrEmpty() || !isTimestampsUpdated) {
                 recipeInterActor.addRecipe(recipe)
-                        .result(::postFailure, ::savingRecipeSucceed)
+                        .result(::savingRecipeFailed, ::savingRecipeSucceed)
                 return@launch
             }
 
             recipeInterActor.addRecipeAndTimestamps(recipe, timestampList)
-                    .result(::postFailure, ::savingRecipeSucceed)
-            return@launch
+                    .result(::savingRecipeFailed, ::savingRecipeSucceed)
         }
     }
 
-    fun shouldShowExitDialog():Boolean {
+    private fun savingRecipeFailed(exception: Exception) {
+        Crashlytics.logException(exception)
+        postFailure(SaveItemException)
+    }
+
+    fun shouldShowExitDialog(): Boolean {
         return isRecipeUpdated || isTimestampsUpdated
     }
 
