@@ -7,13 +7,11 @@ import androidx.paging.toLiveData
 import com.ocakmali.brewway.addeditrecipe.base.AbstractSearchEquipmentViewModel
 import com.ocakmali.brewway.datamodel.CoffeeView
 import com.ocakmali.brewway.datamodel.toView
-import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.domain.interactor.CoffeeInterActor
 import com.ocakmali.domain.model.Coffee
 
-class SearchCoffeeViewModel(private val interActor: CoffeeInterActor,
-                            dispatchers: DispatchersProvider)
-    : AbstractSearchEquipmentViewModel<Coffee>(dispatchers) {
+class SearchCoffeeViewModel(private val interActor: CoffeeInterActor)
+    : AbstractSearchEquipmentViewModel<Coffee>() {
 
     val coffees: LiveData<PagedList<CoffeeView>> =
             Transformations.switchMap(searchResult) { dataSource ->

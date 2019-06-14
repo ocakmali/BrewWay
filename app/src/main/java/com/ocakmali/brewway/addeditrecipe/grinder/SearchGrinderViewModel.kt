@@ -11,9 +11,8 @@ import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.domain.interactor.GrinderInterActor
 import com.ocakmali.domain.model.Grinder
 
-class SearchGrinderViewModel(private val interActor: GrinderInterActor,
-                             dispatchersProvider: DispatchersProvider)
-    : AbstractSearchEquipmentViewModel<Grinder>(dispatchersProvider) {
+class SearchGrinderViewModel(private val interActor: GrinderInterActor)
+    : AbstractSearchEquipmentViewModel<Grinder>() {
 
     val grinders: LiveData<PagedList<GrinderView>> =
             Transformations.switchMap(searchResult) { dataSource ->

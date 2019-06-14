@@ -25,7 +25,7 @@
 package com.ocakmali.brewway.di
 
 import com.ocakmali.domain.interactor.*
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 val domainModule = module {
 

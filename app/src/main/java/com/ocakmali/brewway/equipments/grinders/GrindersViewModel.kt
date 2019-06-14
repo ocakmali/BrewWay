@@ -8,13 +8,11 @@ import com.ocakmali.brewway.datamodel.GrinderView
 import com.ocakmali.brewway.datamodel.toGrinder
 import com.ocakmali.brewway.datamodel.toView
 import com.ocakmali.brewway.exceptions.EmptyItem
-import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.common.Result
 import com.ocakmali.domain.interactor.GrinderInterActor
 import kotlinx.coroutines.launch
 
-class GrindersViewModel(private val interActor: GrinderInterActor,
-                        dispatchers: DispatchersProvider) : BaseViewModel(dispatchers) {
+class GrindersViewModel(private val interActor: GrinderInterActor) : BaseViewModel() {
 
     val grinders = interActor.loadGrinders()
             .map { it.toView() }

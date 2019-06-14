@@ -30,7 +30,7 @@ import com.ocakmali.data.db.BrewWayDatabase
 import com.ocakmali.data.repository.*
 import com.ocakmali.domain.repository.*
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 val dataModule = module {
 

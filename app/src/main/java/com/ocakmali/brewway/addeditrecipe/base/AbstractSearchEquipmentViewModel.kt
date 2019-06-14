@@ -3,7 +3,6 @@ package com.ocakmali.brewway.addeditrecipe.base
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.ocakmali.brewway.base.BaseViewModel
-import com.ocakmali.common.DispatchersProvider
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.channels.actor
@@ -11,8 +10,8 @@ import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.delay
 import java.util.*
 
-abstract class AbstractSearchEquipmentViewModel<T>(dispatchers: DispatchersProvider)
-    : BaseViewModel(dispatchers) {
+abstract class AbstractSearchEquipmentViewModel<T>
+    : BaseViewModel() {
 
     private lateinit var query: String
     protected val searchResult = MutableLiveData<DataSource.Factory<Int, T>>()

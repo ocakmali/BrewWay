@@ -29,13 +29,17 @@ import com.ocakmali.brewway.di.appModule
 import com.ocakmali.brewway.di.commonModule
 import com.ocakmali.brewway.di.dataModule
 import com.ocakmali.brewway.di.domainModule
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class BrewWayApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
-        startKoin(this, listOf(commonModule, domainModule, dataModule, appModule))
+        startKoin {
+            androidContext(this@BrewWayApplication)
+            modules(listOf(commonModule, domainModule, dataModule, appModule))
+        }
     }
 }

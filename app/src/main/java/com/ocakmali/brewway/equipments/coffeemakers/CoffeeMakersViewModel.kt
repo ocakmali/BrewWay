@@ -8,13 +8,11 @@ import com.ocakmali.brewway.datamodel.CoffeeMakerView
 import com.ocakmali.brewway.datamodel.toCoffeeMaker
 import com.ocakmali.brewway.datamodel.toView
 import com.ocakmali.brewway.exceptions.EmptyItem
-import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.common.Result
 import com.ocakmali.domain.interactor.CoffeeMakerInterActor
 import kotlinx.coroutines.launch
 
-class CoffeeMakersViewModel(private val interActor: CoffeeMakerInterActor,
-                            dispatcher: DispatchersProvider) : BaseViewModel(dispatcher) {
+class CoffeeMakersViewModel(private val interActor: CoffeeMakerInterActor) : BaseViewModel() {
 
     val coffeeMakers = interActor.loadCoffeeMakers()
             .map { it.toView() }

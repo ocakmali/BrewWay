@@ -32,19 +32,18 @@ import com.ocakmali.brewway.equipments.coffeemakers.CoffeeMakersViewModel
 import com.ocakmali.brewway.equipments.coffees.CoffeesViewModel
 import com.ocakmali.brewway.equipments.grinders.GrindersViewModel
 import com.ocakmali.brewway.recipes.RecipesViewModel
-import org.koin.androidx.viewmodel.experimental.builder.viewModel
-import org.koin.androidx.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 val appModule = module {
 
     //ViewModel
-    viewModel { CoffeesViewModel(get(), get()) }
-    viewModel { CoffeeMakersViewModel(get(), get()) }
-    viewModel { GrindersViewModel(get(), get()) }
-    viewModel { RecipesViewModel(get(), get()) }
-    viewModel<AddEditRecipeViewModel>()
-    viewModel<SearchCoffeeViewModel>()
-    viewModel<SearchCoffeeMakerViewModel>()
-    viewModel<SearchGrinderViewModel>()
+    viewModel { CoffeesViewModel(get()) }
+    viewModel { CoffeeMakersViewModel(get()) }
+    viewModel { GrindersViewModel(get()) }
+    viewModel { RecipesViewModel(get()) }
+    viewModel { AddEditRecipeViewModel(get()) }
+    viewModel { SearchCoffeeViewModel(get()) }
+    viewModel { SearchCoffeeMakerViewModel(get()) }
+    viewModel { SearchGrinderViewModel(get()) }
 }

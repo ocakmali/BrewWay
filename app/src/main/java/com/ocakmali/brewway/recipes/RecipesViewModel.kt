@@ -27,11 +27,9 @@ package com.ocakmali.brewway.recipes
 import androidx.paging.toLiveData
 import com.ocakmali.brewway.base.BaseViewModel
 import com.ocakmali.brewway.datamodel.toView
-import com.ocakmali.common.DispatchersProvider
 import com.ocakmali.domain.interactor.RecipeInterActor
 
-class RecipesViewModel(private val interActor: RecipeInterActor,
-                       dispatchers: DispatchersProvider) : BaseViewModel(dispatchers) {
+class RecipesViewModel(private val interActor: RecipeInterActor) : BaseViewModel() {
 
     val recipes = interActor.loadRecipes()
             .map { it.toView() }
