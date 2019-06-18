@@ -63,4 +63,8 @@ dependencies {
     implementation deps.firebase.core
     implementation deps.firebase.crashlytics
     implementation deps.firebase.performance
+
+    implementation deps.timber
+
+    debugImplementation deps.leak_canary
 }
