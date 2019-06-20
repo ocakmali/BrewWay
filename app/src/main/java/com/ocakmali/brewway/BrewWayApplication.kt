@@ -25,12 +25,15 @@
 package com.ocakmali.brewway
 
 import android.app.Application
+import android.util.Log
+import com.crashlytics.android.Crashlytics
 import com.ocakmali.brewway.di.appModule
 import com.ocakmali.brewway.di.commonModule
 import com.ocakmali.brewway.di.dataModule
 import com.ocakmali.brewway.di.domainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import timber.log.Timber
 
 class BrewWayApplication : Application() {
 
@@ -41,5 +44,25 @@ class BrewWayApplication : Application() {
             androidContext(this@BrewWayApplication)
             modules(listOf(commonModule, domainModule, dataModule, appModule))
         }
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(CrashlyticsTree())
+        }
     }
+
+    private class CrashlyticsTree : Timber.Tree() {
+        override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
+            if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+                return
+            }
+
+            Crashlytics.log(priority, tag, message)
+            if (t != null && priority >= Log.WARN) {
+                Crashlytics.logException(t)
+            }
+        }
+    }
+
 }
