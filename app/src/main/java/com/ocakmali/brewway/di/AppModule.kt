@@ -63,6 +63,15 @@ val appModule = module {
         TimerNotificationProvider(context)
     }
 
+    scope(named<TimerFragment>()) {
+        scoped { (id: Long, context: Context, lifecycleOwner: LifecycleOwner) ->
+            TimerController(id, context, lifecycleOwner,
+                get(named<TimerNotificationProvider>()) { parametersOf(context) },
+                get()
+            )
+        }
+    }
+
     scope(named<TimerService>()) {
         scoped { (service: TimerService, scope: CoroutineScope, context: Context) ->
             TimerNotificationController(

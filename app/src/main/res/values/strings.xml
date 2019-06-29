@@ -48,5 +48,8 @@
     <string name="temperature_not_specified">Temp. not specified</string>
     <string name="cant_fetch_recipe">Couldn\'t fetch recipe</string>
     <string name="cant_save_recipe">Couldn\'t save recipe</string>
+    <string name="stop">Stop</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="cant_start_timer">Can\'t start this timer because another service is running</string>
 </resources>
 

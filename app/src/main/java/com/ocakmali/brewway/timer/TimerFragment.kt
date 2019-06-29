@@ -24,11 +24,39 @@
 
 package com.ocakmali.brewway.timer
 
+import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.Observer
 import com.ocakmali.brewway.R
 import com.ocakmali.brewway.base.BaseFragment
+import com.ocakmali.brewway.extensions.toast
+import kotlinx.android.synthetic.main.fragment_timer.*
+import org.koin.androidx.scope.currentScope
+import org.koin.core.parameter.parametersOf
 
 class TimerFragment : BaseFragment() {
 
+    private val timerController: TimerController by currentScope.inject {
+            parametersOf(0L, requireContext(), viewLifecycleOwner)
+    }
+
     override fun layoutResId(): Int  = R.layout.fragment_timer
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        timerController.time.observe(viewLifecycleOwner, Observer { time ->
+            text_time.text = time
+        })
+
+        btn_start.setOnClickListener {
+            if (timerController.startServiceIfNotStarted().not()) {
+                toast(R.string.cant_start_timer)
+            }
+        }
+
+        btn_stop.setOnClickListener {
+            timerController.stop()
+        }
+    }
 }
