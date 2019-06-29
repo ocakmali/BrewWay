@@ -20,6 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service android:name=".timer.service.TimerService"
+            android:label="Timer"
+            android:exported="false"/>
+
+        <receiver android:name=".timer.broadcastreceiver.StopBroadcastReceiver"
+            android:exported="false"/>
     </application>
 
 </manifest>
